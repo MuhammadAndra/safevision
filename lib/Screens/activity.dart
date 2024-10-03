@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safevision/Widgets/AppBarWidget.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class HalamanAktivitas extends StatefulWidget {
@@ -13,20 +14,7 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Icon(Icons.arrow_back),
-        title: Text('Aktivitas'),
-        actions: const [
-          Icon(Icons.notifications),
-          SizedBox(width: 10),
-          CircleAvatar(
-            backgroundImage: NetworkImage(
-              'https://via.placeholder.com/150',
-            ),
-          ),
-          SizedBox(width: 10),
-        ],
-      ),
+      appBar: Appbarwidget(title: "Activity"),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 1,
         items: const [
