@@ -3,6 +3,8 @@ import 'package:safevision/Screens/activity.dart';
 import 'package:safevision/Screens/archive.dart';
 import 'package:safevision/Screens/home.dart';
 import 'package:safevision/Screens/settings.dart';
+import 'package:safevision/Widgets/AppBarTest.dart';
+import 'Widgets/AppBarWidget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,6 +50,12 @@ class _NavigationExampleState extends State<NavigationExample> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
+      // appBar: Appbarwidget(title: 'Hello Ikram!', subtitle: 'Good Morning!'),
+      // appBar: appbartest(),
+      // appBar: AppBar(
+      //   title: Text("test"),
+      //   backgroundColor: Colors.blue,
+      // ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
