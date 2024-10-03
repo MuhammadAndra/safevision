@@ -36,7 +36,9 @@ class _MyHomePageState extends State<MyHomePage> {
               Suspiciousactivitydetected(),
               // SizedBox(height: 24),
               Sectiontitle(title: "Live Camera", seeAll: true),
+              SizedBox(height: 20),
               Cameracarousel(),
+              SizedBox(height: 20),
               Sectiontitle(title: "Service"),
               Services(),
 
