@@ -42,7 +42,7 @@ class _NavigationExampleState extends State<NavigationExample> {
   List<Widget> pages = [
     MyHomePage(title: 'Counterapp'),
     HalamanAktivitas(),
-    ArchivePage(title: 'Archive'),
+    HalamanArchive(),
     SettingsPage(title: 'Counterapp'),
   ];
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safevision/Screens/detailActivity.dart';
 import 'package:safevision/Widgets/AppBarWidget.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -134,50 +135,67 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
   }
 
   Widget itemAktivitas(String nama, String waktu, String urlGambar) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0), 
-      decoration: BoxDecoration(
-        color: Colors.blue[50],
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
-            blurRadius: 4,
-            spreadRadius: 1,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 80, 
-            height: 80, 
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(10), 
-              bottomLeft: Radius.circular(10),
-              ),
-              image: DecorationImage(
-                image: NetworkImage(urlGambar),
-                fit: BoxFit.cover, 
-              ),
+    return GestureDetector(
+      onTap: () {
+        // Navigasi ke halaman detail saat item ditekan
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailAktivitasPage(
+              nama: nama,
+              waktu: waktu,
+              urlGambar: urlGambar,
             ),
           ),
-          SizedBox(width: 16), 
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  nama,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+        decoration: BoxDecoration(
+          color: Colors.blue[50],
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              blurRadius: 4,
+              spreadRadius: 1,
+              offset: Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      nama,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(waktu),
+                  ],
                 ),
-                Text(waktu),
-              ],
+              ),
             ),
-          ),
-        ],
+            Container(
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
+                ),
+                image: DecorationImage(
+                  image: NetworkImage(urlGambar),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
