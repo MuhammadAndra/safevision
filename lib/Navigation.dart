@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safevision/Screens/activity.dart';
+import 'package:safevision/Screens/addperson.dart';
 import 'package:safevision/Screens/archive.dart';
 import 'package:safevision/Screens/home.dart';
 import 'package:safevision/Screens/settings.dart';
@@ -25,6 +26,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const NavigationExample(),
+      routes: {
+        //kalo mau nambahin service disini ya
+        'service/addperson':(context) => AddPerson()
+      },
     );
   }
 }
@@ -34,6 +39,7 @@ class NavigationExample extends StatefulWidget {
 
   @override
   State<NavigationExample> createState() => _NavigationExampleState();
+  
 }
 
 class _NavigationExampleState extends State<NavigationExample> {

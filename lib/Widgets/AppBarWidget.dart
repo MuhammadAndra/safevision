@@ -28,6 +28,7 @@ class Appbarwidget extends StatelessWidget implements PreferredSizeWidget {
                     style: const TextStyle(
                       letterSpacing: 0.5,
                       fontWeight: FontWeight.w400,
+                      fontSize: 18,
                     ),
                   ),
             if (subtitle != null)

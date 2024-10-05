@@ -9,15 +9,20 @@ class Services extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        service('Live Camera', Icons.videocam_outlined, usedColor),
-        service('Microphone', Icons.mic, usedColor),
-        service('Add Person', Icons.add, usedColor),
-        service('Stats', Icons.insert_chart_outlined, usedColor),
+        service(context, 'Live Camera', Icons.videocam_outlined, usedColor,
+            "service/livecamera"),
+        service(
+            context, 'Microphone', Icons.mic, usedColor, "service/microphone"),
+        service(
+            context, 'Add Person', Icons.add, usedColor, "service/addperson"),
+        service(context, 'Stats', Icons.insert_chart_outlined, usedColor,
+            "service/stats"),
       ],
     );
   }
 
-  service(String title, IconData icon, Color usedColor) {
+  service(BuildContext context, title, IconData icon, Color usedColor,
+      String route) {
     Color selectedColor = usedColor;
     String selectedTitle = title;
     IconData selectedIcon = icon;
@@ -26,7 +31,9 @@ class Services extends StatelessWidget {
       children: [
         IconButton.filled(
           padding: EdgeInsets.all(24),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, route);
+          },
           icon: Icon(selectedIcon),
           color: Colors.black,
           style: IconButton.styleFrom(
