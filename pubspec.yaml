@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   m3_carousel: ^2.0.2
   carousel_slider: ^5.0.0
+  fl_chart: ^0.69.0
 
 dev_dependencies:
   flutter_test:

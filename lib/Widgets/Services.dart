@@ -5,7 +5,7 @@ class Services extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color usedColor = Theme.of(context).colorScheme.secondaryContainer;
+    Color usedColor = Theme.of(context).colorScheme.surfaceContainerHigh;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -46,6 +46,7 @@ class Services extends StatelessWidget {
           selectedTitle,
           style: TextStyle(
             fontSize: 12,
+            color: Colors.grey[500],
           ),
         )
       ],

@@ -42,14 +42,14 @@ class _HalamanArchiveState extends State<HalamanArchive> {
             padding: const EdgeInsets.all(16.0),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.blue[100], 
-                borderRadius: BorderRadius.circular(15), 
+                color: Colors.blue[100],
+                borderRadius: BorderRadius.circular(15),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
                     blurRadius: 5,
                     spreadRadius: 2,
-                    offset: Offset(0, 3), 
+                    offset: Offset(0, 3),
                   ),
                 ],
               ),
@@ -68,39 +68,39 @@ class _HalamanArchiveState extends State<HalamanArchive> {
                         _focusTanggal = focusedDay;
                       });
                     },
-                    calendarFormat: CalendarFormat.twoWeeks, 
+                    calendarFormat: CalendarFormat.twoWeeks,
                     startingDayOfWeek: StartingDayOfWeek.monday,
                     headerStyle: HeaderStyle(
                       formatButtonVisible: false,
                       titleCentered: true,
                       titleTextFormatter: (date, locale) =>
-                          '${date.year} - ${_formatBulan(date.month)}', 
+                      '${date.year} - ${_formatBulan(date.month)}',
                     ),
-                    daysOfWeekVisible: true, 
-                    availableGestures: AvailableGestures.all, 
+                    daysOfWeekVisible: true,
+                    availableGestures: AvailableGestures.all,
                     daysOfWeekStyle: const DaysOfWeekStyle(
                       weekdayStyle: TextStyle(color: Colors.black),
                       weekendStyle: TextStyle(color: Colors.black),
                     ),
                     calendarStyle: CalendarStyle(
                       todayDecoration: const BoxDecoration(
-                        color: Colors.transparent, 
+                        color: Colors.transparent,
                       ),
                       selectedDecoration: BoxDecoration(
-                        color: Colors.blue[400], 
-                        shape: BoxShape.circle, 
+                        color: Colors.blue[400],
+                        shape: BoxShape.circle,
                       ),
                       defaultDecoration: const BoxDecoration(
-                        color: Colors.transparent, 
+                        color: Colors.transparent,
                       ),
                       weekendDecoration: const BoxDecoration(
                         color: Colors.transparent,
                       ),
                       selectedTextStyle: const TextStyle(
-                        color: Colors.white, 
+                        color: Colors.white,
                       ),
                       defaultTextStyle: const TextStyle(
-                        color: Colors.black, 
+                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -114,8 +114,8 @@ class _HalamanArchiveState extends State<HalamanArchive> {
             child: Text(
               'Records',
               style: TextStyle(
-                fontSize: 20, 
-                fontWeight: FontWeight.bold, 
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
@@ -134,55 +134,55 @@ class _HalamanArchiveState extends State<HalamanArchive> {
   }
 
   Widget itemArchive(String nama, String waktu, String urlGambar) {
-  return Container(
-    margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-    decoration: BoxDecoration(
-      color: Colors.blue[50],
-      borderRadius: BorderRadius.circular(10),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.3),
-          blurRadius: 4,
-          spreadRadius: 1,
-          offset: Offset(0, 2),
-        ),
-      ],
-    ),
-    child: Row(
-      children: [
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0), 
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  nama,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Text(waktu),
-              ],
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      decoration: BoxDecoration(
+        color: Colors.blue[50],
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            blurRadius: 4,
+            spreadRadius: 1,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    nama,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(waktu),
+                ],
+              ),
             ),
           ),
-        ),
-        Container(
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(10),
-              bottomRight: Radius.circular(10),
-            ),
-            image: DecorationImage(
-              image: NetworkImage(urlGambar),
-              fit: BoxFit.cover,
+          Container(
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(10),
+                bottomRight: Radius.circular(10),
+              ),
+              image: DecorationImage(
+                image: NetworkImage(urlGambar),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-        ),
-      ],
-    ),
-  );
-}
+        ],
+      ),
+    );
+  }
   String _formatBulan(int month) {
     List<String> bulan = [
       'Januari',

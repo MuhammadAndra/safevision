@@ -11,9 +11,10 @@ class Appbarwidget extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       toolbarHeight: 400,
-      // backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      scrolledUnderElevation: 0.0,
       title: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -8,7 +8,7 @@ class Sectiontitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 24, 0, 14),
+      padding: const EdgeInsets.fromLTRB(0, 30, 0, 14),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
