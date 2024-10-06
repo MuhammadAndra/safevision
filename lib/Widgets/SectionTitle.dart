@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Sectiontitle extends StatelessWidget {
-  const Sectiontitle({super.key, required this.title, this.seeAll = false});
+  const Sectiontitle({super.key, required this.title, this.seeAll = false, this.route});
   final String title;
   final bool? seeAll;
+  final String? route;
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +20,16 @@ class Sectiontitle extends StatelessWidget {
             ),
           ),
           if (seeAll == true)
-          Text(
-            "See All",
-            style: TextStyle(
-                fontSize: 20,
-                color: Colors.blueAccent
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, route.toString());
+            },
+            child: Text(
+              "See All",
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.blueAccent
+              ),
             ),
           ),
         ],

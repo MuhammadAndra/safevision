@@ -35,7 +35,7 @@ class ActivityChart extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Text(
-              'Activity Detcted', // Your chart title
+              'Activity Detected', // Your chart title
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,

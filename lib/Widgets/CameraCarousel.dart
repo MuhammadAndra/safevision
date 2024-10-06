@@ -1,53 +1,77 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../Entities/Camera.dart';
+
 class Cameracarousel extends StatelessWidget {
   const Cameracarousel({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    List<Camera> cameraList = [
+      Camera(
+          'CAM1-BACK',
+          'Backyard',
+          NetworkImage(
+              "https://www.redfin.com/blog/wp-content/uploads/2020/05/3_Backyard-Oasis-Ideas.jpg")),
+      Camera(
+          'CAM2-DOOR',
+          "Front Door",
+          NetworkImage(
+              "https://www.thespruce.com/thmb/FcehVxm-Y0dfnttD-IhhVTm9Pwc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/298815228_170632415484129_1384064757048194521_n-5aa965d810fe43559536e0996cea381e.jpg")),
+      Camera(
+          'CAM3-DINE',
+          'Dining Garden',
+          NetworkImage(
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE1yBc50JXnLXGb7o7wrIPlP7olbDZmsGbkQ&s")),
+    ];
+
     return Transform.scale(
       scale: 1.15,
       child: CarouselSlider(
-        items: [
+        items: cameraList
+            .map((camera) => cameraFootage(
+          footage: camera.footage,
+          cameraName: camera.cameraName,
+          locationName: camera.locationName,
+        ))
+            .toList(),
           //1st Image of Slider
-          Container(
-            // margin: EdgeInsets.all(1.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30.0),
-              image: DecorationImage(
-                image: NetworkImage("https://www.redfin.com/blog/wp-content/uploads/2020/05/3_Backyard-Oasis-Ideas.jpg"),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-
-          //2nd Image of Slider
-          Container(
-            // margin: EdgeInsets.all(6.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30.0),
-              image: DecorationImage(
-                image: NetworkImage("https://www.thespruce.com/thmb/FcehVxm-Y0dfnttD-IhhVTm9Pwc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/298815228_170632415484129_1384064757048194521_n-5aa965d810fe43559536e0996cea381e.jpg"),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-
-          //3rd Image of Slider
-          Container(
-            // margin: EdgeInsets.all(6.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30.0),
-              image: DecorationImage(
-                image: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE1yBc50JXnLXGb7o7wrIPlP7olbDZmsGbkQ&s"),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-
-
-        ],
+          // Container(
+          //   // margin: EdgeInsets.all(1.0),
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(30.0),
+          //     image: DecorationImage(
+          //       image: NetworkImage("https://www.redfin.com/blog/wp-content/uploads/2020/05/3_Backyard-Oasis-Ideas.jpg"),
+          //       fit: BoxFit.cover,
+          //     ),
+          //   ),
+          // ),
+          //
+          // //2nd Image of Slider
+          // Container(
+          //   // margin: EdgeInsets.all(6.0),
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(30.0),
+          //     image: DecorationImage(
+          //       image: NetworkImage("https://www.thespruce.com/thmb/FcehVxm-Y0dfnttD-IhhVTm9Pwc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/298815228_170632415484129_1384064757048194521_n-5aa965d810fe43559536e0996cea381e.jpg"),
+          //       fit: BoxFit.cover,
+          //     ),
+          //   ),
+          // ),
+          //
+          // //3rd Image of Slider
+          // Container(
+          //   // margin: EdgeInsets.all(6.0),
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(30.0),
+          //     image: DecorationImage(
+          //       image: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE1yBc50JXnLXGb7o7wrIPlP7olbDZmsGbkQ&s"),
+          //       fit: BoxFit.cover,
+          //     ),
+          //   ),
+          // ),
 
         //Slider Container properties
         options: CarouselOptions(
@@ -62,6 +86,75 @@ class Cameracarousel extends StatelessWidget {
           viewportFraction: 0.8,
         ),
       ),
+    );
+  }
+}
+
+class cameraFootage extends StatelessWidget {
+  const cameraFootage(
+      {super.key,
+        required this.cameraName,
+        required this.locationName,
+        required this.footage});
+
+  final ImageProvider footage;
+  final String cameraName;
+  final String locationName;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+      child: Stack(children: [
+        Container(
+          width: double.infinity,
+          height: 200,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30.0),
+            image: DecorationImage(
+              image: footage,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 20,
+          left: 20,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                locationName,
+                style: TextStyle(
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: Offset(3.0, 3.0),
+                        blurRadius: 20.0,
+                        color: Color.fromARGB(180, 0, 0, 0),
+                      ),
+                    ],
+                    fontSize: 16,
+                    letterSpacing: 0.2,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white),
+              ),
+              Text(
+                cameraName,
+                style: TextStyle(shadows: <Shadow>[
+                  Shadow(
+                    offset: Offset(3.0, 3.0),
+                    blurRadius: 20.0,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                  ),
+                ], fontSize: 11,
+                    letterSpacing: 0.2,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white),
+              ),
+            ],
+          ),
+        ),
+      ]),
     );
   }
 }

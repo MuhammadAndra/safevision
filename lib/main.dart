@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:safevision/Navigation.dart';
 import 'package:safevision/Screens/activity.dart';
 import 'package:safevision/Screens/addperson.dart';
+import 'package:safevision/Screens/livecamera.dart';
 import 'package:safevision/Screens/statspage.dart';
 
 void main() {
@@ -18,8 +19,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
+      // initialRoute: 'service/livecamera',
       routes: {
         //nambahin routing disini yaa
+        'service/livecamera': (context) => Livecamera(),
         'service/addperson': (context) => AddPerson(),
         'service/stats': (context) => Statspage(),
       },
