@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AddPersonCard extends StatelessWidget {
-  const AddPersonCard({super.key});
+  void Function()? onPressed;
+  AddPersonCard({super.key,required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class AddPersonCard extends StatelessWidget {
               width: 175,
               height: 175,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: onPressed,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0XFFE2EDF2),
                   elevation: 0,
@@ -30,10 +31,12 @@ class AddPersonCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                child: const Icon(Icons.add, size: 100,color: Color(0XFF234D5F),),
-              )
-              
-              ),
+                child: const Icon(
+                  Icons.add,
+                  size: 100,
+                  color: Color(0XFF234D5F),
+                ),
+              )),
           Padding(
             padding: const EdgeInsets.only(left: 10, top: 5),
             child: Container(
