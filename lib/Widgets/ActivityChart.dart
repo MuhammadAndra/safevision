@@ -12,10 +12,13 @@ import 'package:fl_chart/fl_chart.dart';
 // ));
 
 class ActivityChart extends StatelessWidget {
+  const ActivityChart({super.key, this.height = 150});
+  final double? height;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150, // Increased height to accommodate title
+      height: height, // Increased height to accommodate title
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.onSecondaryContainer,
         borderRadius: BorderRadius.circular(22),

@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 // Sectiontitle(title: "Connected Devices", seeAll: true,),
                 // Sectiontitle(title: "Connected Devices", seeAll: true,),
                 DeviceGrid(),
-                Sectiontitle(title: "Statistics", seeAll: true,),
+                Sectiontitle(title: "Statistics", seeAll: true, route: 'service/stats'),
                 ActivityChart(),
                 SizedBox(height: 20),
               ],
