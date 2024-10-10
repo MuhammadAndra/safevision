@@ -47,11 +47,13 @@ class Personcard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    width: 115,
-                    child: Text(
-                      personName,
-                      style: TextStyle(fontSize: 17),
-                      overflow: TextOverflow.ellipsis,
+                    // width: 115,
+                    child: Flexible(
+                      child: Text(
+                        personName,
+                        style: TextStyle(fontSize: 17),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
                   IconButton(

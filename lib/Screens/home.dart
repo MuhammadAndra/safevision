@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Sectiontitle(title: "Live Camera", seeAll: true, route: 'service/livecamera',),
                 SizedBox(height: 20),
                 Cameracarousel(),
-                SizedBox(height: 20),
+                // SizedBox(height: 20),
                 Sectiontitle(title: "Service"),
                 Services(),
                 Sectiontitle(title: "Connected Devices", seeAll: true,),

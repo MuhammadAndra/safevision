@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:safevision/Screens/detailActivity.dart';
 import 'package:safevision/Widgets/AppBarWidget.dart';
+import 'package:safevision/Widgets/SectionTitle.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class HalamanAktivitas extends StatefulWidget {
@@ -16,43 +17,15 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Appbarwidget(title: "Activity"),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Beranda',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.access_time),
-            label: 'Aktivitas',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.archive),
-            label: 'Arsip',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Pengaturan',
-          ),
-        ],
-      ),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.blue[100], 
+                color: Theme.of(context).colorScheme.surfaceContainerHigh,
                 borderRadius: BorderRadius.circular(15), 
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    blurRadius: 5,
-                    spreadRadius: 2,
-                    offset: Offset(0, 3), 
-                  ),
-                ],
+
               ),
               child: Column(
                 children: [
@@ -88,7 +61,7 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
                         color: Colors.transparent, 
                       ),
                       selectedDecoration: BoxDecoration(
-                        color: Colors.blue[400], 
+                        color: Theme.of(context).colorScheme.surfaceContainerHigh,
                         shape: BoxShape.circle, 
                       ),
                       defaultDecoration: const BoxDecoration(
@@ -109,17 +82,11 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
               ),
             ),
           ),
-          Divider(),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(
-              'Activity List',
-              style: TextStyle(
-                fontSize: 20, 
-                fontWeight: FontWeight.bold, 
-              ),
-            ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Sectiontitle(title: 'Activity List'),
           ),
+
           Expanded(
             child: ListView(
               children: [
@@ -154,14 +121,7 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
         decoration: BoxDecoration(
           color: Colors.blue[50],
           borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              blurRadius: 4,
-              spreadRadius: 1,
-              offset: Offset(0, 2),
-            ),
-          ],
+
         ),
         child: Row(
           children: [
@@ -173,7 +133,7 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
                   children: [
                     Text(
                       nama,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontWeight: FontWeight.w600),
                     ),
                     Text(waktu),
                   ],
