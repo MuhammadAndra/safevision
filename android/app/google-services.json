@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "625953990876",
+    "project_id": "safevision-4acd3",
+    "storage_bucket": "safevision-4acd3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625953990876:android:19d1312e1dbb1260c46c19",
+        "android_client_info": {
+          "package_name": "com.example.safevision"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPevV5kC1w9su8fPY7iPMXCxaUIT7ttkU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

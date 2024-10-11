@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:safevision/Widgets/AddPersonCard.dart';
 import 'package:safevision/Widgets/AppBarWidget.dart';
 import 'package:safevision/Widgets/PersonCard.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class Person {
   final String imageUrl;
@@ -23,6 +25,56 @@ class AddPerson extends StatefulWidget {
 }
 
 class _AddPersonState extends State<AddPerson> {
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final DatabaseReference _database = FirebaseDatabase.instance.ref();
+
+  // Email and password for login
+  String email = 'halilintardaiva@gmail.com';
+  String password = 'kerenbanget';
+
+  // Data to send to Firebase
+  String name = 'John Doe';
+  String phoneNumber = '123-456-7890';
+
+  User? _user;
+
+  // Function to login the user
+  Future<void> _loginUser() async {
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      setState(() {
+        _user = userCredential.user;
+      });
+      print("User logged in: ${_user!.email}");
+    } catch (e) {
+      print("Error logging in: $e");
+    }
+  }
+
+  // Function to send data to Realtime Database
+  Future<void> _sendData() async {
+    if (_user != null) {
+      // Send name and phone number under the user's UID
+      await _database.child('users/${_user!.uid}').set({
+        'name': name,
+        'phone': phoneNumber,
+      });
+      print("Data sent to Realtime Database.");
+    } else {
+      print("User not logged in.");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loginUser();
+  }
+
   List<Person> people = [
     Person(
       imageUrl:
@@ -52,6 +104,7 @@ class _AddPersonState extends State<AddPerson> {
   @override
   Widget build(BuildContext context) {
     void onPressed() {
+      _sendData();
       people.add(
         Person(
           imageUrl:
@@ -60,7 +113,8 @@ class _AddPersonState extends State<AddPerson> {
           relationship: "Stranger",
         ),
       );
-      setState(() {}); // Call setState here
+      setState(() {});
+      // Call setState here
     }
 
     return Scaffold(

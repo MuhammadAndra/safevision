@@ -20,11 +20,11 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
             child: Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surfaceContainerHigh,
-                borderRadius: BorderRadius.circular(15), 
+                borderRadius: BorderRadius.circular(22),
 
               ),
               child: Column(
@@ -61,7 +61,7 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
                         color: Colors.transparent, 
                       ),
                       selectedDecoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surfaceContainerHigh,
+                        color: Theme.of(context).colorScheme.secondary,
                         shape: BoxShape.circle, 
                       ),
                       defaultDecoration: const BoxDecoration(
@@ -83,7 +83,7 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Sectiontitle(title: 'Activity List'),
           ),
 
@@ -91,8 +91,8 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
             child: ListView(
               children: [
                 itemAktivitas('Orang Ketiga', '14:15:30', 'https://media.istockphoto.com/id/1330054759/photo/gift-gifting-with-family.jpg?s=612x612&w=0&k=20&c=zAmdxnDcDnmhbNGqVl30iGh0E5GcLOjk8uOiI6xxIBI='),
-                itemAktivitas('Orang Kedua', '10:21:42', 'https://media.istockphoto.com/id/1330054759/photo/gift-gifting-with-family.jpg?s=612x612&w=0&k=20&c=zAmdxnDcDnmhbNGqVl30iGh0E5GcLOjk8uOiI6xxIBI='),
-                itemAktivitas('Orang Pertama', '09:05:20', 'https://media.istockphoto.com/id/1330054759/photo/gift-gifting-with-family.jpg?s=612x612&w=0&k=20&c=zAmdxnDcDnmhbNGqVl30iGh0E5GcLOjk8uOiI6xxIBI='),
+                itemAktivitas('Orang Kedua', '10:21:42', 'https://cdn.pixabay.com/photo/2023/11/02/05/23/woman-8359670_1280.png'),
+                itemAktivitas('Orang Pertama', '09:05:20', 'https://cdn.pixabay.com/photo/2016/11/23/17/18/bed-1853907_1280.jpg'),
               ],
             ),
           ),
@@ -117,10 +117,10 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
         );
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+        margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
         decoration: BoxDecoration(
-          color: Colors.blue[50],
-          borderRadius: BorderRadius.circular(10),
+          color: Theme.of(context).colorScheme.surfaceContainerHigh,
+          borderRadius: BorderRadius.circular(22),
 
         ),
         child: Row(
@@ -141,12 +141,12 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
               ),
             ),
             Container(
-              width: 80,
+              width: 100,
               height: 80,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
+                  topRight: Radius.circular(22),
+                  bottomRight: Radius.circular(22),
                 ),
                 image: DecorationImage(
                   image: NetworkImage(urlGambar),
