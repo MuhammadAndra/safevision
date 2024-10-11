@@ -14,7 +14,7 @@ class _HalamanArchiveState extends State<HalamanArchive> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Appbarwidget(title: "Archive"),
+      appBar: Appbarwidget(title: "Archive",subtitle: "3 new archive today",),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 1,
         items: const [

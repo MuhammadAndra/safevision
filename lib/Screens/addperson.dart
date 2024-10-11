@@ -86,6 +86,7 @@ class _AddPersonState extends State<AddPerson> {
                 personName: people[i].personName,
                 relationship: people[i].relationship,
               ),
+              
           ],
         ),
       ),

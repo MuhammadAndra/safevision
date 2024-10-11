@@ -52,40 +52,5 @@ class Settingscard extends StatelessWidget {
     );
   }
 
-  inkwelled() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
-      child: Material(
-        color: Color(0XFFE2EDF2),
-        shape: Border.all(color: Color(0xffA2C2D0), style: BorderStyle.solid),
-        child: InkWell(
-          onTap: () {},
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Icon(
-                  icon,
-                  size: 30,
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                Expanded(
-                    child: Text(
-                  menuName,
-                  style: TextStyle(fontSize: 18),
-                )),
-                Icon(
-                  Icons.arrow_right,
-                  size: 30,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  
 }

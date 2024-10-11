@@ -45,7 +45,7 @@ class Appbarwidget extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: <Widget>[
         IconButton(
-          onPressed: () {},
+          onPressed: () {Navigator.pushNamed(context, 'notification');},
           icon: const Badge(child: Icon(Icons.notifications_outlined)),
         ),
         Padding(

@@ -16,7 +16,7 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Appbarwidget(title: "Activity"),
+      appBar: Appbarwidget(title: "Activity",subtitle: "3 new activity today",),
       body: Column(
         children: [
           Padding(
