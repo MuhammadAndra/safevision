@@ -20,7 +20,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: NavigationExample(),
+      // home: NavigationExample(),
+      home: Loginpage(),
       theme: ThemeData(
         fontFamily: 'Poppins',
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         'service/stats': (context) => Statspage(),
         'notification': (context)=> Notificationpage(),
         'login':(context)=>Loginpage(),
-        'navigation':(context)=>NavigationExample()
+        // 'navigation':(context)=>NavigationExample()
       },
       debugShowCheckedModeBanner: false,
     );

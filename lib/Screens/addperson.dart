@@ -34,8 +34,8 @@ class _AddPersonState extends State<AddPerson> {
   String password = '12345678';
 
   // Data to send to Firebase
-  String name = 'John Wokwi';
-  String phoneNumber = '123123817238';
+  String name = 'Andra Dzaki';
+  String phoneNumber = '082254610616';
 
   User? _user;
 
@@ -101,6 +101,7 @@ class _AddPersonState extends State<AddPerson> {
       relationship: 'Friend',
     ),
   ];
+  
   @override
   Widget build(BuildContext context) {
     void onPressed() {

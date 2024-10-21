@@ -5,6 +5,7 @@ import 'package:safevision/Widgets/SettingsCard.dart';
 import 'package:safevision/Widgets/SettingsNotificationCard.dart';
 import 'package:safevision/Widgets/UserInfoCard.dart';
 
+
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key, required this.title});
 
