@@ -30,12 +30,12 @@ class _AddPersonState extends State<AddPerson> {
   final DatabaseReference _database = FirebaseDatabase.instance.ref();
 
   // Email and password for login
-  String email = 'halilintardaiva@gmail.com';
-  String password = 'kerenbanget';
+  String email = 'andra@gmail.com';
+  String password = '12345678';
 
   // Data to send to Firebase
-  String name = 'John Doe';
-  String phoneNumber = '123-456-7890';
+  String name = 'John Wokwi';
+  String phoneNumber = '123123817238';
 
   User? _user;
 
