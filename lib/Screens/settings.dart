@@ -34,25 +34,27 @@ class _SettingsPageState extends State<SettingsPage> {
             Settingscard(
               icon: Icons.shopping_cart_outlined,
               menuName: "Subcription",
-              onTap: (){},
+              onTap: () {},
             ),
             SizedBox(height: 14),
             Settingscard(
               icon: Icons.password,
               menuName: "Change Password",
-              onTap: (){},
+              onTap: () {},
             ),
             SizedBox(height: 14),
             Settingscard(
               icon: Icons.help_outline,
               menuName: "Support",
-              onTap: (){},
+              onTap: () {},
             ),
             SizedBox(height: 14),
             Actionbutton(
               textButton: "Log Out",
               red: true,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, "login");
+              },
             ),
           ],
         ),

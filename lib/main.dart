@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:safevision/Navigation.dart';
 import 'package:safevision/Screens/addperson.dart';
+import 'package:safevision/Screens/home.dart';
 import 'package:safevision/Screens/livecamera.dart';
+import 'package:safevision/Screens/loginpage.dart';
 import 'package:safevision/Screens/notification.dart';
 import 'package:safevision/Screens/statspage.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +32,8 @@ class MyApp extends StatelessWidget {
         'service/addperson': (context) => AddPerson(),
         'service/stats': (context) => Statspage(),
         'notification': (context)=> Notificationpage(),
+        'login':(context)=>Loginpage(),
+        'navigation':(context)=>NavigationExample()
       },
       debugShowCheckedModeBanner: false,
     );
