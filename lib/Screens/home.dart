@@ -30,11 +30,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // if (widget.user != null) {
-    //   setState(() {
-    //     userEmail = widget.user!.email.toString();
-    //   });
-    // }
     User? userFirebase = FirebaseAuth.instance.currentUser;
     if (userFirebase!=null) {
       setState(() {

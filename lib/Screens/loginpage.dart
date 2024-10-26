@@ -20,6 +20,7 @@ class _LoginpageState extends State<Loginpage> {
 
   final TextEditingController _controllerUsername = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
+
   Future<void> _loginUser() async {
     if (_controllerUsername.text.isEmpty || _controllerPassword.text.isEmpty) {
       setState(() {
@@ -37,16 +38,16 @@ class _LoginpageState extends State<Loginpage> {
           _errorMessage = null;
         });
         print("User logged in: ${_user!.email}");
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => NavigationExample()),
-          (Route<dynamic> route) => false,
-        );
+        Navigator.pushReplacementNamed(context, "navigation");
+        // Navigator.pushAndRemoveUntil(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => NavigationExample()),
+        //   (Route<dynamic> route) => false,
+        // );
       } catch (e) {
         print("Error logging in: $e");
         setState(() {
-          _errorMessage =
-              "The email or password you entered is incorrect."; // Masukkan ke dalam setState
+          _errorMessage = "The email or password you entered is incorrect.";
         });
       }
   }
@@ -71,12 +72,13 @@ class _LoginpageState extends State<Loginpage> {
             SizedBox(
               height: 120,
             ),
-            if (_errorMessage != null)
-              Text(
-                _errorMessage!,
-                style: TextStyle(
-                    color: Colors.red), // Teks berwarna merah untuk error
+            Text(
+              _errorMessage ??
+                  '', // Tampilkan teks error jika ada, jika tidak kosongkan
+              style: TextStyle(
+                color: _errorMessage != null ? Colors.red : Colors.transparent,
               ),
+            ),
             SizedBox(height: 10),
             Customtextfield(
               controller: _controllerUsername,

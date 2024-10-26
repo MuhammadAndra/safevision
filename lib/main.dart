@@ -34,9 +34,9 @@ class MyApp extends StatelessWidget {
         'service/microphone': (context) => Microphone(),
         'service/addperson': (context) => AddPerson(),
         'service/stats': (context) => Statspage(),
-        'notification': (context)=> Notificationpage(),
-        'login':(context)=>Loginpage(),
-        // 'navigation':(context)=>NavigationExample()
+        'notification': (context) => Notificationpage(),
+        'login': (context) => Loginpage(),
+        'navigation': (context) => NavigationExample(),
       },
       debugShowCheckedModeBanner: false,
     );

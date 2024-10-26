@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:safevision/Screens/loginpage.dart';
 import 'package:safevision/Widgets/ActionButton.dart';
 import 'package:safevision/Widgets/AppBarWidget.dart';
 import 'package:safevision/Widgets/SettingsCard.dart';
 import 'package:safevision/Widgets/SettingsNotificationCard.dart';
 import 'package:safevision/Widgets/UserInfoCard.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key, required this.title});
@@ -16,6 +17,11 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  Future<void> logout() async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.pushReplacementNamed(context, "login");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
               textButton: "Log Out",
               red: true,
               onPressed: () {
-                Navigator.pushNamed(context, "login");
+                logout();
               },
             ),
           ],
