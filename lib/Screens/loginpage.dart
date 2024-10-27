@@ -109,7 +109,7 @@ class _LoginpageState extends State<Loginpage> {
             Container(
               alignment: Alignment.centerRight,
               child: InkWell(
-                onTap: () {},
+                onTap: () { Navigator.pushNamed(context, 'enteremail');},
                 child: Text(
                   "Forget Password?",
                   style: TextStyle(

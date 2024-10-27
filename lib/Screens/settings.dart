@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:safevision/Screens/loginpage.dart';
 import 'package:safevision/Widgets/ActionButton.dart';
 import 'package:safevision/Widgets/AppBarWidget.dart';
+import 'package:safevision/Widgets/CustomAlertDialog.dart';
 import 'package:safevision/Widgets/SettingsCard.dart';
 import 'package:safevision/Widgets/SettingsNotificationCard.dart';
 import 'package:safevision/Widgets/UserInfoCard.dart';
@@ -20,6 +21,28 @@ class _SettingsPageState extends State<SettingsPage> {
   Future<void> logout() async {
     await FirebaseAuth.instance.signOut();
     Navigator.pushReplacementNamed(context, "login");
+  }
+
+  void _showCancelDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Customalertdialog(
+          icon: Icons.gpp_maybe_outlined,
+          safe: false,
+          title: "Are you sure you want to Log Out?",
+          mainAction: "Yes",
+          secAction: "No",
+          mainOnPressed: () {
+            Navigator.of(context).pop();
+            logout();
+          },
+          secOnPressed: () {
+            Navigator.of(context).pop();
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -41,13 +64,17 @@ class _SettingsPageState extends State<SettingsPage> {
             Settingscard(
               icon: Icons.shopping_cart_outlined,
               menuName: "Subcription",
-              onTap: () {Navigator.pushNamed(context, 'subcription');},
+              onTap: () {
+                Navigator.pushNamed(context, 'subcription');
+              },
             ),
             SizedBox(height: 14),
             Settingscard(
               icon: Icons.password,
               menuName: "Change Password",
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, 'changepassword');
+              },
             ),
             SizedBox(height: 14),
             Settingscard(
@@ -60,7 +87,7 @@ class _SettingsPageState extends State<SettingsPage> {
               textButton: "Log Out",
               safe: false,
               onPressed: () {
-                logout();
+                _showCancelDialog(context);
               },
             ),
           ],

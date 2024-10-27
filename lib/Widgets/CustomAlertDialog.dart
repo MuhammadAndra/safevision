@@ -32,7 +32,7 @@ class Customalertdialog extends StatelessWidget {
       title: Text(
         title,
         style: TextStyle(
-          fontSize: 18,
+          fontSize: 20,
           color: safe == true ? Color(0XFF4D6D7A) : Color(0XFF7A4D4D),
           fontWeight: FontWeight.bold,
         ),
