@@ -20,6 +20,17 @@ class _LoginpageState extends State<Loginpage> {
 
   final TextEditingController _controllerUsername = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    // Cek jika pengguna sudah login
+    if (_auth.currentUser != null) {
+      // Jika pengguna aktif, arahkan langsung ke halaman utama
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushReplacementNamed(context, "navigation");
+      });
+    }
+  }
 
   Future<void> _loginUser() async {
     if (_controllerUsername.text.isEmpty || _controllerPassword.text.isEmpty) {
@@ -116,7 +127,7 @@ class _LoginpageState extends State<Loginpage> {
                 onPressed: () {
                   _loginUser();
                 },
-                red: false),
+                safe: true),
             SizedBox(
               height: 50,
             ),

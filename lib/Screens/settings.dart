@@ -41,7 +41,7 @@ class _SettingsPageState extends State<SettingsPage> {
             Settingscard(
               icon: Icons.shopping_cart_outlined,
               menuName: "Subcription",
-              onTap: () {},
+              onTap: () {Navigator.pushNamed(context, 'subcription');},
             ),
             SizedBox(height: 14),
             Settingscard(
@@ -58,7 +58,7 @@ class _SettingsPageState extends State<SettingsPage> {
             SizedBox(height: 14),
             Actionbutton(
               textButton: "Log Out",
-              red: true,
+              safe: false,
               onPressed: () {
                 logout();
               },

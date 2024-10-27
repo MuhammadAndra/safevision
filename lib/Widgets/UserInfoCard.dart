@@ -5,15 +5,18 @@ class Userinfocard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: Material(
         color: Color(0XFFE2EDF2),
-        border: Border.all(
-          color: Color(0xffA2C2D0),
-        ),
-        borderRadius: BorderRadius.all(Radius.circular(12))
-      ),
-      child: Padding(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide(
+              color: Color(0xffA2C2D0),
+            )),
+        child: InkWell(
+          onTap: (){},
+          child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,7 +49,7 @@ class Userinfocard extends StatelessWidget {
             IconButton(onPressed: () {}, icon: Icon(Icons.edit_outlined))
           ],
         ),
-      ),
+      ),),),
     );
   }
 }

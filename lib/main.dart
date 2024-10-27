@@ -9,6 +9,7 @@ import 'package:safevision/Screens/notification.dart';
 import 'package:safevision/Screens/statspage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:safevision/Screens/subcription.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         'notification': (context) => Notificationpage(),
         'login': (context) => Loginpage(),
         'navigation': (context) => NavigationExample(),
+        'subcription':(context)=>SubcriptionPage(),
       },
       debugShowCheckedModeBanner: false,
     );

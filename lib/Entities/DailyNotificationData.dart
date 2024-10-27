@@ -1,4 +1,3 @@
-
 import 'package:safevision/Entities/NotificationData.dart';
 class DailyNotificationData {
   final DateTime dateTime;

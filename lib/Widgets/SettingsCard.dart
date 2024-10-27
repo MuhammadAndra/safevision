@@ -22,7 +22,7 @@ class Settingscard extends StatelessWidget {
               color: Color(0xffA2C2D0),
             )),
         child: InkWell(
-          onTap: () {},
+          onTap: onTap,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
             child: Row(
