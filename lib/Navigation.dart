@@ -28,9 +28,7 @@ class _NavigationExampleState extends State<NavigationExample> {
   }
 
   List<Widget> pages = [
-    MyHomePage(
-      title: 'Counterapp', /* user: user,*/
-    ),
+    MyHomePage(title: 'Counterapp'),
     HalamanAktivitas(),
     HalamanArchive(),
     SettingsPage(title: 'Counterapp'),

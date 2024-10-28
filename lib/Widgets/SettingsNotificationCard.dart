@@ -21,11 +21,11 @@ class _SettingsnotificationcardState extends State<Settingsnotificationcard> {
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
       child: Material(
-        color: Color(0XFFE2EDF2),
+        color:light? Color(0XFFE2EDF2):Color(0XFFF7EDED),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
             side: BorderSide(
-              color: Color(0xffA2C2D0),
+              color: light? Color(0xffA2C2D0):Color(0xffD0A2A2),
             )),
         child: InkWell(
           onTap: () {
@@ -52,6 +52,8 @@ class _SettingsnotificationcardState extends State<Settingsnotificationcard> {
                   activeColor: Colors.white,
                   activeTrackColor: Color(0XFFA2C2D0),
                   inactiveThumbColor: Color(0XFF7A4D4D),
+                  inactiveTrackColor: Color(0XFFF7EDED),
+                  
                   value: light,
                   onChanged: onChange,
                 )

@@ -38,7 +38,7 @@ class _LoginpageState extends State<Loginpage> {
         _errorMessage =
             "Email or password fields cannot be empty."; // Masukkan ke dalam setState
       });
-    } else
+    } else {
       try {
         UserCredential userCredential = await _auth.signInWithEmailAndPassword(
           email: _controllerUsername.text,
@@ -49,7 +49,10 @@ class _LoginpageState extends State<Loginpage> {
           _errorMessage = null;
         });
         print("User logged in: ${_user!.email}");
-        Navigator.pushReplacementNamed(context, "navigation");
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => NavigationExample()),
+          (Route<dynamic> route) => false,
+        );
         // Navigator.pushAndRemoveUntil(
         //   context,
         //   MaterialPageRoute(builder: (context) => NavigationExample()),
@@ -61,6 +64,7 @@ class _LoginpageState extends State<Loginpage> {
           _errorMessage = "The email or password you entered is incorrect.";
         });
       }
+    }
   }
 
   @override
@@ -109,7 +113,9 @@ class _LoginpageState extends State<Loginpage> {
             Container(
               alignment: Alignment.centerRight,
               child: InkWell(
-                onTap: () { Navigator.pushNamed(context, 'enteremail');},
+                onTap: () {
+                  Navigator.pushNamed(context, 'enteremail');
+                },
                 child: Text(
                   "Forget Password?",
                   style: TextStyle(

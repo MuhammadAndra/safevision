@@ -23,7 +23,7 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
             padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
             child: Container(
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surfaceContainerHigh,
+                color: Color(0XFFE2EDF2),
                 borderRadius: BorderRadius.circular(22),
 
               ),
@@ -61,7 +61,7 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
                         color: Colors.transparent, 
                       ),
                       selectedDecoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.secondary,
+                        color: Color(0xff4D6D7A),
                         shape: BoxShape.circle, 
                       ),
                       defaultDecoration: const BoxDecoration(
@@ -119,7 +119,7 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceContainerHigh,
+          color: Color(0XFFE2EDF2),
           borderRadius: BorderRadius.circular(22),
 
         ),

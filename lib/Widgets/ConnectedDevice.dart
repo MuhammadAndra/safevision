@@ -42,7 +42,7 @@ class DeviceTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color usedColor = Theme.of(context).colorScheme.surfaceContainerHigh;
+    Color usedColor = Color(0XFFE2EDF2);
     return ClipRRect(
       borderRadius: BorderRadius.circular(22),
       child: Material(

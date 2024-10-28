@@ -13,7 +13,9 @@ class Bottomnavigationbar extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return NavigationBar(
+      backgroundColor: Color(0xffEDF4F7),
       onDestinationSelected: onDestinationSelected,
+      indicatorColor: Color(0xffB6E3F6),
       selectedIndex: selectedIndex,
       destinations: const <Widget>[
         NavigationDestination(

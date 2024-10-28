@@ -42,7 +42,7 @@ class _HalamanArchiveState extends State<HalamanArchive> {
             padding: const EdgeInsets.all(16.0),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.blue[100],
+                color: Color(0XFFE2EDF2),
                 borderRadius: BorderRadius.circular(15),
                 boxShadow: [
                   BoxShadow(
@@ -87,7 +87,7 @@ class _HalamanArchiveState extends State<HalamanArchive> {
                         color: Colors.transparent,
                       ),
                       selectedDecoration: BoxDecoration(
-                        color: Colors.blue[400],
+                        color: Color(0XFF4D6D7A),
                         shape: BoxShape.circle,
                       ),
                       defaultDecoration: const BoxDecoration(
@@ -137,7 +137,7 @@ class _HalamanArchiveState extends State<HalamanArchive> {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       decoration: BoxDecoration(
-        color: Colors.blue[50],
+        color: Color(0XFFE2EDF2),
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(

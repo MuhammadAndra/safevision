@@ -93,7 +93,7 @@ class StatsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color usedColor = Theme.of(context).colorScheme.surfaceContainerHigh;
+    Color usedColor = Color(0xffE2EDF2);
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(22),
