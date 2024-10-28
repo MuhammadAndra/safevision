@@ -10,11 +10,13 @@ import 'package:safevision/Screens/livecamera.dart';
 import 'package:safevision/Screens/loginpage.dart';
 import 'package:safevision/Screens/microphone.dart';
 import 'package:safevision/Screens/notification.dart';
+import 'package:safevision/Screens/onboarding.dart';
 import 'package:safevision/Screens/resetPassword.dart';
 import 'package:safevision/Screens/statspage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:safevision/Screens/subcription.dart';
+import 'package:safevision/Screens/welcome.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       // home: NavigationExample(),
-      home: Loginpage(),
+      home: Welcomepage(),
       theme: ThemeData(
         fontFamily: 'Poppins',
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
@@ -49,6 +51,8 @@ class MyApp extends StatelessWidget {
         'enterverification':(context)=>Enterverification(),
         'resetpassword':(context)=>Resetpassword(),
         'editprofile':(context)=>Editprofilepage(),
+        'welcome':(context)=>Welcomepage(),
+        'onboarding':(context)=>OnboardingScreen(),
       },
       debugShowCheckedModeBanner: false,
     );

@@ -21,31 +21,36 @@ class Userinfocard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const CircleAvatar(
-                    radius: 25,
-                    backgroundImage: AssetImage('assets/profile.jpg'),
-                  ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
                   children: [
-                    Container(
-                      width: 225,
-                      child: Text(
-                        "Muhammad Ikram Sabila",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
-                        overflow: TextOverflow.ellipsis,
+                    IconButton(
+                      onPressed: () {},
+                      icon: const CircleAvatar(
+                        radius: 25,
+                        backgroundImage: AssetImage('assets/profile.jpg'),
                       ),
                     ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      "ikramgtgbgt@gmail.com",
-                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                    SizedBox(width: 5,),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 225,
+                          child: Text(
+                            "Muhammad Ikram Sabila",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "ikramgtgbgt@gmail.com",
+                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                        ),
+                      ],
                     ),
                   ],
                 ),

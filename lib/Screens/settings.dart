@@ -80,7 +80,8 @@ class _SettingsPageState extends State<SettingsPage> {
             Settingscard(
               icon: Icons.help_outline,
               menuName: "Support",
-              onTap: () {},
+              onTap: () {
+              },
             ),
             SizedBox(height: 14),
             Actionbutton(
