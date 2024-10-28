@@ -11,36 +11,47 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class NavigationExample extends StatefulWidget {
   // final User user;
-  const NavigationExample({super.key});
+  final int initialPageIndex;
+
+  const NavigationExample({super.key, this.initialPageIndex = 0});
   @override
   State<NavigationExample> createState() => _NavigationExampleState();
 }
 
 class _NavigationExampleState extends State<NavigationExample> {
-  int currentPageIndex = 0;
+  late int currentPageIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    currentPageIndex = widget.initialPageIndex;
+  }
+
   List<Widget> pages = [
-      MyHomePage( title: 'Counterapp',/* user: user,*/),
-      HalamanAktivitas(),
-      HalamanArchive(),
-      SettingsPage(title: 'Counterapp'),
-    ];
+    MyHomePage(
+      title: 'Counterapp', /* user: user,*/
+    ),
+    HalamanAktivitas(),
+    HalamanArchive(),
+    SettingsPage(title: 'Counterapp'),
+  ];
   void navigateBottomBar(int index) {
     setState(() {
       currentPageIndex = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     // User user = widget.user;
-    
+
     return Scaffold(
       bottomNavigationBar: Bottomnavigationbar(
         onDestinationSelected: (index) => navigateBottomBar(index),
         selectedIndex: currentPageIndex,
       ),
       body: pages[currentPageIndex],
-
     );
   }
 }

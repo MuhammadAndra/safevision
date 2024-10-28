@@ -15,41 +15,50 @@ class Userinfocard extends StatelessWidget {
               color: Color(0xffA2C2D0),
             )),
         child: InkWell(
-          onTap: (){},
+          onTap: () {},
           child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-              onPressed: () {},
-              icon: const CircleAvatar(
-                radius: 25,
-                backgroundImage: AssetImage('assets/profile.jpg'),
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  width: 225,
-                  child: Text(
-                    "Muhammad Ikram Sabila",
-                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
-                    overflow: TextOverflow.ellipsis,
+                IconButton(
+                  onPressed: () {},
+                  icon: const CircleAvatar(
+                    radius: 25,
+                    backgroundImage: AssetImage('assets/profile.jpg'),
                   ),
                 ),
-                SizedBox(height: 5,),
-                Text(
-                  "ikramgtgbgt@gmail.com",
-                  style: TextStyle(color: Colors.grey, fontSize: 12),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 225,
+                      child: Text(
+                        "Muhammad Ikram Sabila",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      "ikramgtgbgt@gmail.com",
+                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                    ),
+                  ],
                 ),
+                IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, 'editprofile');
+                    },
+                    icon: Icon(Icons.edit_outlined))
               ],
             ),
-            IconButton(onPressed: () {}, icon: Icon(Icons.edit_outlined))
-          ],
+          ),
         ),
-      ),),),
+      ),
     );
   }
 }

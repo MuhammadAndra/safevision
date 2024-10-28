@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:safevision/Navigation.dart';
 import 'package:safevision/Screens/addperson.dart';
 import 'package:safevision/Screens/changePassword.dart';
+import 'package:safevision/Screens/editProfile.dart';
 import 'package:safevision/Screens/enterEmail.dart';
 import 'package:safevision/Screens/enterVerification.dart';
 import 'package:safevision/Screens/home.dart';
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
         'enteremail':(context)=>Enteremail(),
         'enterverification':(context)=>Enterverification(),
         'resetpassword':(context)=>Resetpassword(),
+        'editprofile':(context)=>Editprofilepage(),
       },
       debugShowCheckedModeBanner: false,
     );

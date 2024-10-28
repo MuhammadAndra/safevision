@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safevision/Navigation.dart';
 import 'package:safevision/Screens/loginpage.dart';
 import 'package:safevision/Widgets/ActionButton.dart';
 import 'package:safevision/Widgets/CustomAlertDialog.dart';
@@ -26,7 +27,10 @@ class Resetpassword extends StatelessWidget {
             Navigator.of(context).pop();
             if (_auth.currentUser != null) {
               // Jika pengguna aktif, arahkan langsung ke halaman utama
-              Navigator.pushNamed(context, 'navigation');
+               Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => NavigationExample(initialPageIndex: 3,)),
+                (Route<dynamic> route) => false,
+              );
             } else {
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) => Loginpage()),
