@@ -46,6 +46,9 @@ dependencies:
   flutter_otp_text_field: ^1.1.0+2
   smooth_page_indicator: ^1.2.0+3
 
+  video_player: ^2.9.2
+  pusher_channels_flutter: ^2.2.1
+#  pusher_client: 2.0.0
 
 dev_dependencies:
   flutter_test:

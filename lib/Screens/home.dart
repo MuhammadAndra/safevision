@@ -59,6 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Sectiontitle(
                 title: "Connected Devices",
                 seeAll: true,
+                route: 'connectedDevice',
               ),
               // Sectiontitle(title: "Connected Devices", seeAll: true,),
               // Sectiontitle(title: "Connected Devices", seeAll: true,),

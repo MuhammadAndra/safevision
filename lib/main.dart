@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:safevision/Navigation.dart';
 import 'package:safevision/Screens/addperson.dart';
 import 'package:safevision/Screens/changePassword.dart';
+import 'package:safevision/Screens/connectedDevicePage.dart';
 import 'package:safevision/Screens/editProfile.dart';
 import 'package:safevision/Screens/enterEmail.dart';
 import 'package:safevision/Screens/enterVerification.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
         'service/microphone': (context) => Microphone(),
         'service/addperson': (context) => AddPerson(),
         'service/stats': (context) => Statspage(),
+        'connectedDevice': (context) => Connecteddevicepage(),
         'notification': (context) => Notificationpage(),
         'login': (context) => Loginpage(),
         'navigation': (context) => NavigationExample(),
