@@ -29,16 +29,19 @@ class _CameracarouselState extends State<Cameracarousel> {
   }
 
   Future<void> fetchCameraData() async {
-    final response = await http.get(Uri.parse('YOUR_API_ENDPOINT')); // Ganti dengan URL API Anda
+    final response =
+        await http.get(Uri.parse('http://192.168.198.1:5000/detect'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
+      print("test");
       setState(() {
         detections = data['detections']; // Ambil bounding box dari JSON
         cameraList = [
           Camera1(
               'CAM1-BACK',
               'Backyard',
-              NetworkImage(data['processed_image'])), // Tampilkan processed_image dari JSON
+              NetworkImage(data[
+                  'processed_image'])), // Tampilkan processed_image dari JSON
         ];
       });
     } else {
@@ -107,8 +110,9 @@ class cameraFootage extends StatelessWidget {
           ...detections.map((detection) {
             final bbox = detection['bbox'];
             final label = detection['label'];
-            final confidence = (detection['confidence'] * 100).toStringAsFixed(2);
-            
+            final confidence =
+                (detection['confidence'] * 100).toStringAsFixed(2);
+
             return Positioned(
               left: bbox[0].toDouble(),
               top: bbox[1].toDouble(),
@@ -123,7 +127,8 @@ class cameraFootage extends StatelessWidget {
                 ),
                 child: Text(
                   "$label ($confidence%)",
-                  style: TextStyle(color: Colors.white, backgroundColor: Colors.black54),
+                  style: TextStyle(
+                      color: Colors.white, backgroundColor: Colors.black54),
                 ),
               ),
             );
