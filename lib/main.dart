@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:safevision/Navigation.dart';
+import 'package:safevision/PusherService.dart';
 import 'package:safevision/Screens/addperson.dart';
 import 'package:safevision/Screens/changePassword.dart';
 import 'package:safevision/Screens/connectedDevicePage.dart';
@@ -18,11 +20,19 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:safevision/Screens/subcription.dart';
 import 'package:safevision/Screens/welcome.dart';
+import 'package:safevision/test.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(
+      MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => PusherService()),
+          ],
+          child: MyApp()
+      )
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -36,9 +46,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      // initialRoute: 'service/stats',
+      initialRoute: 'test',
       routes: {
         //nambahin routing disini yaa
+        'test': (context) => TestHomePage(),
         'service/livecamera': (context) => Livecamera(),
         'service/microphone': (context) => Microphone(),
         'service/addperson': (context) => AddPerson(),

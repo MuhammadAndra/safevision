@@ -48,6 +48,7 @@ dependencies:
 
   video_player: ^2.9.2
   pusher_channels_flutter: ^2.2.1
+  provider: ^6.1.2
 #  pusher_client: 2.0.0
 
 dev_dependencies:
