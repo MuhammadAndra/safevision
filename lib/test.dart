@@ -1,142 +1,65 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
+import 'package:firebase_database/firebase_database.dart';
 
-// void main() => runApp(MaterialApp(
-//     theme: ThemeData(
-//       fontFamily: 'Poppins',
-//
-//       colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-//       useMaterial3: true,
-//     ),
-//     home: BarChartSample()
-// ));
+class FirebaseImagePage extends StatefulWidget {
+  @override
+  _FirebaseImagePageState createState() => _FirebaseImagePageState();
+}
 
-class BarChartExample extends StatelessWidget {
+class _FirebaseImagePageState extends State<FirebaseImagePage> {
+  DatabaseReference _databaseReference = FirebaseDatabase.instance.ref();
+  String? _base64Image;  // Store the base64 string
+  ImageProvider? _image; // To hold the current image
+  final String placeholderImage = 'assets/placeholder.png'; // Path to your placeholder image
+
+  @override
+  void initState() {
+    super.initState();
+    _setupImageListener();  // Set up the image listener when the widget initializes
+  }
+
+  void _setupImageListener() {
+    DatabaseReference imageRef = _databaseReference.child('users/2dK2t8Zyg5RJloifZrIX1b9AOXQ2/Video/image');
+
+    // Listen for changes in the database reference
+    imageRef.onValue.listen((DatabaseEvent event) {
+      final data = event.snapshot.value as String?;
+      if (data != null) {
+        String newImageData = data.substring(23);
+        // Update the image in a way that avoids flickering
+        setState(() {
+          _base64Image = newImageData; // Store the new base64 string
+          _image = MemoryImage(base64Decode(newImageData)); // Update the image provider
+        });
+      }
+    }).onError((error) {
+      print('Failed to load image: $error');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Bar Chart Example')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Container(
-          height: 150, // Increased height to accommodate title
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.onSecondaryContainer,
-            borderRadius: BorderRadius.circular(22),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black26,
-                blurRadius: 8,
-                offset: Offset(0, 2),
-              ),
-            ],
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Column( // Use a Column to stack the title and chart
-            crossAxisAlignment: CrossAxisAlignment.start, // Align to the left
-            children: [
-              // Title of the chart
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Text(
-                  'Activity Detcted', // Your chart title
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              Expanded( // Make the chart expand to fill available space
-                child: BarChart(
-                  BarChartData(
-                    maxY: 10, // Maximum value for y-axis
-                    barTouchData: BarTouchData(enabled: false),
-                    titlesData: FlTitlesData(
-                      leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)), // Removed left labels
-                      bottomTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          getTitlesWidget: (value, meta) {
-                            switch (value.toInt()) {
-                              case 0:
-                                return const Text('25', style: TextStyle(fontSize: 16, color: Colors.white));
-                              case 8:
-                                return const Text('2', style: TextStyle(fontSize: 16, color: Colors.white));
-                              case 16:
-                                return const Text('10', style: TextStyle(fontSize: 16, color: Colors.white));
-                              case 24:
-                                return const Text('18', style: TextStyle(fontSize: 16, color: Colors.white));
-                              default:
-                                return const Text('');
-                            }
-                          },
-                          reservedSize: 32,
-                        ),
-                      ),
-                      topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                      rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                    ),
-                    gridData: FlGridData(show: false),
-                    borderData: FlBorderData(show: false),
-                    barGroups: _getBarGroups(), // Call the function to get bar groups
-                  ),
-                ),
-              ),
-            ],
+      appBar: AppBar(
+        title: Text('Firebase Image'),
+      ),
+      body: Center(
+        child: _base64Image == null
+            ? CircularProgressIndicator()  // Show loading spinner while the image is being fetched
+            : AnimatedSwitcher(
+          duration: Duration(milliseconds: 300), // Duration of the fade transition
+          child: _image == null
+              ? Image.asset(placeholderImage) // Show placeholder while loading
+              : FadeInImage(
+            placeholder: AssetImage(placeholderImage),
+            image: _image!,
+            fit: BoxFit.cover,
+            fadeInDuration: Duration(milliseconds: 300), // Duration of the fade-in
+            fadeOutDuration: Duration(milliseconds: 300), // Duration of the fade-out
           ),
         ),
       ),
     );
   }
-
-  // Function to generate the BarChartGroupData
-  List<BarChartGroupData> _getBarGroups() {
-    return [
-      _createBarGroup(0, 8),
-      _createBarGroup(1, 6),
-      _createBarGroup(2, 7),
-      _createBarGroup(3, 5),
-      _createBarGroup(4, 9),
-      _createBarGroup(5, 4),
-      _createBarGroup(6, 8),
-      _createBarGroup(7, 2),
-      _createBarGroup(8, 3),
-      _createBarGroup(9, 7),
-      _createBarGroup(10, 6),
-      _createBarGroup(11, 5),
-      _createBarGroup(12, 9),
-      _createBarGroup(13, 2),
-      _createBarGroup(14, 8),
-      _createBarGroup(15, 5),
-      _createBarGroup(16, 4),
-      _createBarGroup(17, 8),
-      _createBarGroup(18, 3),
-      _createBarGroup(19, 3),
-      _createBarGroup(20, 7),
-      _createBarGroup(21, 6),
-      _createBarGroup(22, 5),
-      _createBarGroup(23, 9),
-      _createBarGroup(24, 1),
-    ];
-  }
-
-  // Helper function to create a BarChartGroupData
-  BarChartGroupData _createBarGroup(int x, double toY) {
-    // Determine the color based on the value of x
-    Color barColor = (toY > 8) ? Colors.yellow : Colors.white;
-
-    return BarChartGroupData(
-      x: x,
-      barRods: [
-        BarChartRodData(
-          toY: toY,
-          color: barColor, // Use the determined color
-          width: 4,
-          borderRadius: BorderRadius.circular(4),
-        ),
-      ],
-    );
-  }
-
 }

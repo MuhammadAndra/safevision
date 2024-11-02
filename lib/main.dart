@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:safevision/Screens/subcription.dart';
 import 'package:safevision/Screens/welcome.dart';
+import 'package:safevision/test.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,9 +36,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      // initialRoute: 'service/stats',
+      initialRoute: 'test',
       routes: {
         //nambahin routing disini yaa
+        'test': (context) => FirebaseImagePage(),
         'service/livecamera': (context) => Livecamera(),
         'service/microphone': (context) => Microphone(),
         'service/addperson': (context) => AddPerson(),
