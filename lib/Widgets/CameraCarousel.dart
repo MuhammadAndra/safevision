@@ -29,23 +29,46 @@ class _CameracarouselState extends State<Cameracarousel> {
   }
 
   Future<void> fetchCameraData() async {
-    final response =
-        await http.get(Uri.parse('http://192.168.198.1:5000/detect'));
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      print("test");
-      setState(() {
-        detections = data['detections']; // Ambil bounding box dari JSON
-        cameraList = [
-          Camera1(
-              'CAM1-BACK',
-              'Backyard',
-              NetworkImage(data[
-                  'processed_image'])), // Tampilkan processed_image dari JSON
-        ];
-      });
-    } else {
-      print('Failed to fetch camera data');
+    try {
+      // Prepare a mock image file path (use a valid image from your assets)
+      // Simulate sending the image
+      final response = await http.post(
+        Uri.parse('http://192.168.4.77:5000/detect'),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({/* Include any other parameters your API expects */}),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        print("Data fetched successfully");
+
+        setState(() {
+          if (data.containsKey('detections') && data['detections'] is List) {
+            detections = data['detections'];
+          } else {
+            detections = [];
+            print('Warning: detections data not found or invalid.');
+          }
+
+          if (data.containsKey('processed_image') &&
+              data['processed_image'] != null) {
+            cameraList = [
+              Camera1(
+                'CAM1-BACK',
+                'Backyard',
+                NetworkImage(data['processed_image']),
+              ),
+            ];
+          } else {
+            print('Warning: processed_image data not found or null.');
+            cameraList = [];
+          }
+        });
+      } else {
+        print('Failed to fetch camera data: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error fetching camera data: $error');
     }
   }
 
