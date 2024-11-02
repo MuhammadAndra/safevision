@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:safevision/Entities/NotificationData.dart';
+import 'package:intl/intl.dart';
 
 class Notificationcard extends StatelessWidget {
-  
   final NotificationData notificationData;
-  const Notificationcard(
-      {super.key,
-      
-      required this.notificationData});
-
+  const Notificationcard({super.key, required this.notificationData});
+  
   @override
   Widget build(BuildContext context) {
+    var notificationDate =
+        DateFormat('hh:mm a').format(notificationData.alertTime);
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
       child: Material(
-        color: notificationData.suspicious == true ? Color(0XFFF7EDED) : Color(0XFFEDF4F7),
+        color: notificationData.suspicious == true
+            ? Color(0XFFF7EDED)
+            : Color(0XFFEDF4F7),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
             side: BorderSide(
-              color: notificationData.suspicious == true ? Color(0xffD0A2A2) : Color(0xffA2C2D0),
+              color: notificationData.suspicious == true
+                  ? Color(0xffD0A2A2)
+                  : Color(0xffA2C2D0),
             )),
         child: InkWell(
           onTap: () {},
@@ -51,7 +54,7 @@ class Notificationcard extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      notificationData.alertTime,
+                      notificationDate.toString(),
                       style: TextStyle(color: Color(0XFF797979), fontSize: 12),
                     ),
                     const SizedBox(

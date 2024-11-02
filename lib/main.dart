@@ -17,6 +17,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:safevision/Screens/subcription.dart';
 import 'package:safevision/Screens/welcome.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:safevision/test1.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,11 +27,13 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       // home: NavigationExample(),
-      home: Welcomepage(),
+      home: (_auth.currentUser!=null)?  NavigationExample() : Welcomepage(),
       theme: ThemeData(
         fontFamily: 'Poppins',
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
@@ -45,14 +49,15 @@ class MyApp extends StatelessWidget {
         'notification': (context) => Notificationpage(),
         'login': (context) => Loginpage(),
         'navigation': (context) => NavigationExample(),
-        'subcription':(context)=>SubcriptionPage(),
-        'changepassword':(context)=>ChangepasswordPage(),
-        'enteremail':(context)=>Enteremail(),
-        'enterverification':(context)=>Enterverification(),
-        'resetpassword':(context)=>Resetpassword(),
-        'editprofile':(context)=>Editprofilepage(),
-        'welcome':(context)=>Welcomepage(),
-        'onboarding':(context)=>OnboardingScreen(),
+        'subcription': (context) => SubcriptionPage(),
+        'changepassword': (context) => ChangepasswordPage(),
+        'enteremail': (context) => Enteremail(),
+        'enterverification': (context) => Enterverification(),
+        'resetpassword': (context) => Resetpassword(),
+        'editprofile': (context) => Editprofilepage(),
+        'welcome': (context) => Welcomepage(),
+        'onboarding': (context) => OnboardingScreen(),
+        'test1':(context)=> FirebaseImagePage(),
       },
       debugShowCheckedModeBanner: false,
     );

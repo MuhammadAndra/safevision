@@ -2,7 +2,7 @@ class NotificationData {
   final bool suspicious;
   final String cameraLocation;
   final String alertMessage;
-  final String alertTime;
+  final DateTime alertTime;
   NotificationData(
       {required this.suspicious,
       required this.cameraLocation,
