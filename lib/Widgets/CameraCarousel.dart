@@ -109,7 +109,7 @@ class cameraFootage extends StatelessWidget {
             final bbox = detection['bbox'];
             final label = detection['label'];
             final confidence = (detection['confidence'] * 100).toStringAsFixed(2);
-            
+
             return Positioned(
               left: bbox[0].toDouble(),
               top: bbox[1].toDouble(),
