@@ -5,6 +5,8 @@ import 'package:firebase_database/firebase_database.dart';
 
 import '../Entities/Camera.dart';
 
+List<dynamic> _detections = [];
+
 class Cameracarousel extends StatefulWidget {
   const Cameracarousel({super.key});
 
@@ -20,10 +22,12 @@ class _CameracarouselState extends State<Cameracarousel> {
   final String placeholderImage =
       'assets/placeholder.png'; // Path to your placeholder image
 
+
   @override
   void initState() {
     super.initState();
     _setupImageListener(); // Set up the image listener when the widget initializes
+    _setupDetectionListener();
   }
 
   void _setupImageListener() {
@@ -44,6 +48,34 @@ class _CameracarouselState extends State<Cameracarousel> {
       }
     }).onError((error) {
       print('Failed to load image: $error');
+    });
+  }
+
+  void _setupDetectionListener() {
+    DatabaseReference detectionRef = _databaseReference.child('users/2dK2t8Zyg5RJloifZrIX1b9AOXQ2/Video/detection');
+
+    // Listen for changes in the detection reference
+    detectionRef.onValue.listen((DatabaseEvent event) {
+      final data = event.snapshot.value;
+
+      // Check if data is a List or Map
+      if (data is List) {
+        setState(() {
+          _detections = data; // Update detections if it's a List
+        });
+      } else if (data is Map) {
+        // If data is a Map, wrap it in a list
+        setState(() {
+          _detections = [data]; // Wrap the map in a list
+        });
+      } else {
+        // Reset detections if data is neither List nor Map
+        setState(() {
+          _detections = [];
+        });
+      }
+    }).onError((error) {
+      print('Failed to load detection data: $error');
     });
   }
 
@@ -226,7 +258,70 @@ class cameraFootage extends StatelessWidget {
             ],
           ),
         ),
+        Container(
+          width: 4.32,
+          height: 6.2,
+          child: CustomPaint(
+            painter: BoundingBoxPainter(_detections, 10, 15),
+            size: Size.fromHeight(0.0001), // Allow CustomPaint to fill the parent
+          ),
+        ),
       ]),
     );
+  }
+}
+
+class BoundingBoxPainter extends CustomPainter {
+  final List<dynamic> detections;
+  final double imageWidth; // Add the original image width
+  final double imageHeight; // Add the original image height
+
+  BoundingBoxPainter(this.detections, this.imageWidth, this.imageHeight);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2;
+
+    // Calculate scaling factors for width and height
+    double scaleX = size.width / imageWidth;
+    double scaleY = size.height / imageHeight;
+
+    for (var detection in detections) {
+      if (detection['bbox'] != null) {
+        List<dynamic> bbox = detection['bbox'];
+        // Ensure bbox has exactly 4 elements
+        if (bbox.length == 4) {
+          double x = bbox[0].toDouble() * scaleX;
+          double y = bbox[1].toDouble() * scaleY;
+          double width = bbox[2].toDouble() * scaleX;
+          double height = bbox[3].toDouble() * scaleY;
+
+          // Draw the bounding box
+          paint.color = detection['label'] == 'Human' ? Colors.red : Colors.green;
+          canvas.drawRect(Rect.fromLTWH(x, y, width, height), paint);
+
+          // Draw the label and confidence text
+          final label = detection['label'];
+          final confidence = (detection['confidence'] * 100).toStringAsFixed(2);
+          final text = '$label ($confidence%)';
+          final textStyle = TextStyle(color: paint.color, fontSize: 16);
+          final textSpan = TextSpan(text: text, style: textStyle);
+          final textPainter = TextPainter(
+            text: textSpan,
+            textDirection: TextDirection.ltr,
+          );
+          textPainter.layout();
+          // Draw the text above the bounding box
+          textPainter.paint(canvas, Offset(x, y > 10 ? y - 20 : y));
+        }
+      }
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true; // Repaint whenever detections change
   }
 }
