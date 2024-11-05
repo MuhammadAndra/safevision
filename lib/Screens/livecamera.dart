@@ -30,8 +30,8 @@ class _LivecameraState extends State<Livecamera> {
   }
 
   void _setupImageListener() {
-    DatabaseReference imageRef = _databaseReference
-        .child('users/' + _user!.uid + '/Video/image');
+    DatabaseReference imageRef =
+        _databaseReference.child('users/' + _user!.uid + '/Video/image');
 
     // Listen for changes in the database reference
     imageRef.onValue.listen((DatabaseEvent event) {
@@ -51,8 +51,8 @@ class _LivecameraState extends State<Livecamera> {
   }
 
   void _setupDetectionListener() {
-    DatabaseReference detectionRef = _databaseReference
-        .child('users/' + _user!.uid + '/Video/detection');
+    DatabaseReference detectionRef =
+        _databaseReference.child('users/' + _user!.uid + '/Video/detection');
 
     // Listen for changes in the detection reference
     detectionRef.onValue.listen((DatabaseEvent event) {
@@ -87,17 +87,17 @@ class _LivecameraState extends State<Livecamera> {
           //     "https://www.redfin.com/blog/wp-content/uploads/2020/05/3_Backyard-Oasis-Ideas.jpg"),
           ),
       Camera(
-          'CAM2-DOOR',
-          "Front Door",
-          NetworkImage(
-              "https://www.thespruce.com/thmb/FcehVxm-Y0dfnttD-IhhVTm9Pwc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/298815228_170632415484129_1384064757048194521_n-5aa965d810fe43559536e0996cea381e.jpg"),
-      [],
+        'CAM2-DOOR',
+        "Front Door",
+        NetworkImage(
+            "https://www.thespruce.com/thmb/FcehVxm-Y0dfnttD-IhhVTm9Pwc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/298815228_170632415484129_1384064757048194521_n-5aa965d810fe43559536e0996cea381e.jpg"),
+        [],
       ),
       Camera(
-          'CAM3-DINE',
-          'Dining Garden',
-          NetworkImage(
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE1yBc50JXnLXGb7o7wrIPlP7olbDZmsGbkQ&s"),
+        'CAM3-DINE',
+        'Dining Garden',
+        NetworkImage(
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE1yBc50JXnLXGb7o7wrIPlP7olbDZmsGbkQ&s"),
         [],
       ),
     ];
@@ -117,6 +117,7 @@ class _LivecameraState extends State<Livecamera> {
                       cameraName: camera.cameraName,
                       locationName: camera.locationName,
                       detections: camera.detections,
+                      width: 5.5,
                     ))
                 .toList(),
           ),

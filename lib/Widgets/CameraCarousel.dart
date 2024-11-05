@@ -119,6 +119,7 @@ class _CameracarouselState extends State<Cameracarousel> {
                   cameraName: camera.cameraName,
                   locationName: camera.locationName,
                   detections: camera.detections,
+          width: 4.39,
                 ))
             .toList(),
 

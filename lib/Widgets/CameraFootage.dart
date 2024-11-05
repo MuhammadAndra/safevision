@@ -8,9 +8,11 @@ class cameraFootage extends StatelessWidget {
     required this.locationName,
     required this.footage,
     required this.detections,
+    required this.width
   });
 
   final ImageProvider? footage;
+  final double width;
   final String cameraName;
   final String locationName;
   List<dynamic> detections = [];
@@ -40,7 +42,7 @@ class cameraFootage extends StatelessWidget {
                           Duration(milliseconds: 300), // Durasi fade-out
                     ),
                     Container(
-                      width: 4.32,
+                      width: width,
                       height: 6.2,
                       child: CustomPaint(
                         painter: BoundingBoxPainter(detections, 10, 15),
