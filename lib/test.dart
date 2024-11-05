@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseImagePage extends StatefulWidget {
   @override
@@ -9,20 +10,24 @@ class FirebaseImagePage extends StatefulWidget {
 
 class _FirebaseImagePageState extends State<FirebaseImagePage> {
   DatabaseReference _databaseReference = FirebaseDatabase.instance.ref();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   String? _base64Image; // Store the base64 string
   ImageProvider? _image; // To hold the current image
-  final String placeholderImage = 'assets/placeholder.png'; // Path to your placeholder image
+  User? _user;
+  final String placeholderImage = 'assets/placeholder-image.webp'; // Path to your placeholder image
   List<dynamic> _detections = []; // List to store detection data
 
   @override
   void initState() {
     super.initState();
-    _setupImageListener(); // Set up the image listener when the widget initializes
-    _setupDetectionListener(); // Set up detection listener
+    _user = _auth.currentUser;
+    _setupImageListener(_user); // Set up the image listener when the widget initializes
+    _setupDetectionListener(_user); // Set up detection listener
   }
 
-  void _setupImageListener() {
-    DatabaseReference imageRef = _databaseReference.child('users/2dK2t8Zyg5RJloifZrIX1b9AOXQ2/Video/image');
+  void _setupImageListener(User? _user) {
+    this._user = _user;
+    DatabaseReference imageRef = _databaseReference.child('users/' + _user!.uid + '/Video/image');
 
     // Listen for changes in the database reference
     imageRef.onValue.listen((DatabaseEvent event) {
@@ -40,8 +45,9 @@ class _FirebaseImagePageState extends State<FirebaseImagePage> {
     });
   }
 
-  void _setupDetectionListener() {
-    DatabaseReference detectionRef = _databaseReference.child('users/2dK2t8Zyg5RJloifZrIX1b9AOXQ2/Video/detection');
+  void _setupDetectionListener(User? _user) {
+    this._user = _user;
+    DatabaseReference detectionRef = _databaseReference.child('users/' + _user!.uid + '/Video/detection');
 
     // Listen for changes in the detection reference
     detectionRef.onValue.listen((DatabaseEvent event) {
