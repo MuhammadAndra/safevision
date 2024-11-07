@@ -49,16 +49,16 @@ class _FirebaseImagePageState extends State<FirebaseImagePage> {
             ? CircularProgressIndicator()  // Show loading spinner while the image is being fetched
             : AnimatedSwitcher(
           duration: Duration(milliseconds: 300), // Duration of the fade transition
-          child: _image == null
+                child: _image == null
               ? Image.asset(placeholderImage) // Show placeholder while loading
-              : FadeInImage(
-            placeholder: AssetImage(placeholderImage),
-            image: _image!,
-            fit: BoxFit.cover,
+                    : FadeInImage(
+                        placeholder: AssetImage(placeholderImage),
+                        image: _image!,
+                        fit: BoxFit.cover,
             fadeInDuration: Duration(milliseconds: 300), // Duration of the fade-in
             fadeOutDuration: Duration(milliseconds: 300), // Duration of the fade-out
-          ),
-        ),
+                      ),
+              ),
       ),
     );
   }

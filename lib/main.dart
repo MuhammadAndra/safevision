@@ -16,6 +16,7 @@ import 'package:safevision/Screens/statspage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:safevision/Screens/subcription.dart';
+import 'package:safevision/Screens/viewRecord.dart';
 import 'package:safevision/Screens/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:safevision/test1.dart';

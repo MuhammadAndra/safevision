@@ -146,47 +146,48 @@ class cameraFootage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String placeholderImage =
-      'assets/placeholder.png';
+    final String placeholderImage = 'assets/placeholder.png';
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
       child: Stack(children: [
-         AnimatedSwitcher(
-  duration: Duration(milliseconds: 300), // Durasi transisi fade
-  child: footage == null
-      ? ClipRRect(
-          borderRadius: BorderRadius.circular(30.0),
-          child: Image.asset(
-            placeholderImage,
-            width: double.infinity,
-            height: 200,
-            fit: BoxFit.cover,
-          ),
-        )
-      : ClipRRect(
-          borderRadius: BorderRadius.circular(30.0),
-          child: FadeInImage(
-            placeholder: AssetImage(placeholderImage),
-            image: footage,
-            width: double.infinity,
-            height: 200,
-            fit: BoxFit.cover,
-            fadeInDuration: Duration(milliseconds: 300), // Durasi fade-in
-            fadeOutDuration: Duration(milliseconds: 300), // Durasi fade-out
+        // AnimatedSwitcher(
+        //   duration: Duration(milliseconds: 300), // Durasi transisi fade
+        //   child: footage == null
+        //       ? ClipRRect(
+        //           borderRadius: BorderRadius.circular(30.0),
+        //           child: Image.asset(
+        //             placeholderImage,
+        //             width: double.infinity,
+        //             height: 200,
+        //             fit: BoxFit.cover,
+        //           ),
+        //         )
+        //       : ClipRRect(
+        //           borderRadius: BorderRadius.circular(30.0),
+        //           child: FadeInImage(
+        //             placeholder: AssetImage(placeholderImage),
+        //             image: footage,
+        //             width: double.infinity,
+        //             height: 200,
+        //             fit: BoxFit.cover,
+        //             fadeInDuration:
+        //                 Duration(milliseconds: 300), // Durasi fade-in
+        //             fadeOutDuration:
+        //                 Duration(milliseconds: 300), // Durasi fade-out
+        //           ),
+        //         ),
+        // ),
+        Container(
+          width: double.infinity,
+          height: 200,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30.0),
+            image: DecorationImage(
+              image: footage,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
-),
-        // Container(
-        //   width: double.infinity,
-        //   height: 200,
-        //   decoration: BoxDecoration(
-        //     borderRadius: BorderRadius.circular(30.0),
-        //     image: DecorationImage(
-        //       image: footage,
-        //       fit: BoxFit.cover,
-        //     ),
-        //   ),
-        // ),
         Positioned(
           bottom: 20,
           left: 20,

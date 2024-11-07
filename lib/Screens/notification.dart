@@ -18,7 +18,7 @@ class _NotificationpageState extends State<Notificationpage> {
   User? _user;
   late DatabaseReference _dbRef;
   List<DailyNotificationData> _notificationData = [];
-  
+
   @override
   void initState() {
     super.initState();
@@ -68,7 +68,7 @@ class _NotificationpageState extends State<Notificationpage> {
               })
               .toList()
               .cast<DailyNotificationData>();
-              _notificationData.sort((a, b) => b.dateTime.compareTo(a.dateTime));
+          _notificationData.sort((a, b) => b.dateTime.compareTo(a.dateTime));
         }
 
         setState(() {});
