@@ -50,13 +50,13 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
               .whereType<NotifData>()
               .toList();
         }
-        _getRecordsForSelectedDate();
+        _getNotifForSelectedDate();
         setState(() {});
       });
     }
   }
 
-  List<NotifData> _getRecordsForSelectedDate() {
+  List<NotifData> _getNotifForSelectedDate() {
     for (var notification in _allNotifData) {
       if (_tanggalTerpilih.year == notification.Timestamp.year &&
           _tanggalTerpilih.month == notification.Timestamp.month &&
@@ -94,8 +94,10 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
                     },
                     onDaySelected: (selectedDay, focusedDay) {
                       setState(() {
+                        _todayNotifData = [];
                         _tanggalTerpilih = selectedDay;
                         _focusTanggal = focusedDay;
+                        _getNotifForSelectedDate();
                       });
                     },
                     calendarFormat: CalendarFormat.twoWeeks,
