@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:safevision/Entities/NotifData.dart';
 import 'package:safevision/Screens/detailActivity.dart';
 import 'package:safevision/Widgets/AppBarWidget.dart';
 import 'package:safevision/Widgets/SectionTitle.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HalamanAktivitas extends StatefulWidget {
   @override
@@ -12,11 +15,65 @@ class HalamanAktivitas extends StatefulWidget {
 class _HalamanAktivitasState extends State<HalamanAktivitas> {
   DateTime _tanggalTerpilih = DateTime.now();
   DateTime _focusTanggal = DateTime.now();
+  List<NotifData> _allNotifData = [];
+  List<NotifData> _todayNotifData = [];
+
+  //ngambil data record
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  User? _user;
+  late DatabaseReference _dbRef;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _user = _auth.currentUser;
+    if (_user != null) {
+      _dbRef = FirebaseDatabase.instance
+          .ref()
+          .child('users')
+          .child(_user!.uid)
+          .child('Notification');
+      _dbRef.onValue.listen((DatabaseEvent event) {
+        final data = event.snapshot.value;
+
+        if (data != null && data is List) {
+          _allNotifData = data
+              .map((item) {
+                if (item is Map) {
+                  String image = item['Image'] ?? 'Unknown Image';
+                  DateTime date =
+                      DateTime.tryParse(item['Date'] ?? '') ?? DateTime.now();
+                  return NotifData(Image: image, Timestamp: date);
+                }
+              })
+              .whereType<NotifData>()
+              .toList();
+        }
+        _getRecordsForSelectedDate();
+        setState(() {});
+      });
+    }
+  }
+
+  List<NotifData> _getRecordsForSelectedDate() {
+    for (var notification in _allNotifData) {
+      if (_tanggalTerpilih.year == notification.Timestamp.year &&
+          _tanggalTerpilih.month == notification.Timestamp.month &&
+          _tanggalTerpilih.day == notification.Timestamp.day) {
+        _todayNotifData += [notification];
+      }
+    }
+    return _todayNotifData;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Appbarwidget(title: "Activity",subtitle: "3 new activity today",),
+      appBar: Appbarwidget(
+        title: "Activity",
+        subtitle: "3 new activity today",
+      ),
       body: Column(
         children: [
           Padding(
@@ -25,7 +82,6 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
               decoration: BoxDecoration(
                 color: Color(0XFFE2EDF2),
                 borderRadius: BorderRadius.circular(22),
-
               ),
               child: Column(
                 children: [
@@ -42,39 +98,39 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
                         _focusTanggal = focusedDay;
                       });
                     },
-                    calendarFormat: CalendarFormat.twoWeeks, 
+                    calendarFormat: CalendarFormat.twoWeeks,
                     startingDayOfWeek: StartingDayOfWeek.monday,
                     headerStyle: HeaderStyle(
                       formatButtonVisible: false,
                       titleCentered: true,
                       titleTextFormatter: (date, locale) =>
-                          '${date.year} - ${_formatBulan(date.month)}', 
+                          '${date.year} - ${_formatBulan(date.month)}',
                     ),
-                    daysOfWeekVisible: true, 
-                    availableGestures: AvailableGestures.all, 
+                    daysOfWeekVisible: true,
+                    availableGestures: AvailableGestures.all,
                     daysOfWeekStyle: const DaysOfWeekStyle(
                       weekdayStyle: TextStyle(color: Colors.black),
                       weekendStyle: TextStyle(color: Colors.black),
                     ),
                     calendarStyle: CalendarStyle(
                       todayDecoration: const BoxDecoration(
-                        color: Colors.transparent, 
+                        color: Colors.transparent,
                       ),
                       selectedDecoration: BoxDecoration(
                         color: Color(0xff4D6D7A),
-                        shape: BoxShape.circle, 
+                        shape: BoxShape.circle,
                       ),
                       defaultDecoration: const BoxDecoration(
-                        color: Colors.transparent, 
+                        color: Colors.transparent,
                       ),
                       weekendDecoration: const BoxDecoration(
                         color: Colors.transparent,
                       ),
                       selectedTextStyle: const TextStyle(
-                        color: Colors.white, 
+                        color: Colors.white,
                       ),
                       defaultTextStyle: const TextStyle(
-                        color: Colors.black, 
+                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -86,14 +142,12 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Sectiontitle(title: 'Activity List'),
           ),
-
           Expanded(
-            child: ListView(
-              children: [
-                itemAktivitas('Orang Ketiga', '14:15:30', 'https://media.istockphoto.com/id/1330054759/photo/gift-gifting-with-family.jpg?s=612x612&w=0&k=20&c=zAmdxnDcDnmhbNGqVl30iGh0E5GcLOjk8uOiI6xxIBI='),
-                itemAktivitas('Orang Kedua', '10:21:42', 'https://cdn.pixabay.com/photo/2023/11/02/05/23/woman-8359670_1280.png'),
-                itemAktivitas('Orang Pertama', '09:05:20', 'https://cdn.pixabay.com/photo/2016/11/23/17/18/bed-1853907_1280.jpg'),
-              ],
+            child: ListView.builder(
+              itemCount: _todayNotifData.length,
+              itemBuilder: (context, index) {
+                return itemAktivitas(_todayNotifData[index], index);
+              },
             ),
           ),
         ],
@@ -101,17 +155,18 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
     );
   }
 
-  Widget itemAktivitas(String nama, String waktu, String urlGambar) {
+  Widget itemAktivitas(NotifData notifData, int index) {
     return GestureDetector(
       onTap: () {
-        // Navigasi ke halaman detail saat item ditekan
+        // Navigate to the detail page when the item is tapped
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => DetailAktivitasPage(
-              nama: nama,
-              waktu: waktu,
-              urlGambar: urlGambar,
+              nama:
+                  "Aktivitas ${index + 1}", 
+              waktu: notifData.Timestamp.toString(),
+              base64Image: notifData.Image,
             ),
           ),
         );
@@ -121,7 +176,6 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
         decoration: BoxDecoration(
           color: Color(0XFFE2EDF2),
           borderRadius: BorderRadius.circular(22),
-
         ),
         child: Row(
           children: [
@@ -132,10 +186,10 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      nama,
+                      'Aktivitas ${index + 1}', // Show "Aktivitas 1", "Aktivitas 2", etc.
                       style: TextStyle(fontWeight: FontWeight.w600),
                     ),
-                    Text(waktu),
+                    Text(notifData.Timestamp.toString()),
                   ],
                 ),
               ),
@@ -149,7 +203,7 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
                   bottomRight: Radius.circular(22),
                 ),
                 image: DecorationImage(
-                  image: NetworkImage(urlGambar),
+                  image: NetworkImage(notifData.Image),
                   fit: BoxFit.cover,
                 ),
               ),
