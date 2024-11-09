@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class MicrophoneButton extends StatefulWidget {
   const MicrophoneButton({super.key});
@@ -9,8 +11,18 @@ class MicrophoneButton extends StatefulWidget {
 }
 
 class _MicrophoneButtonState extends State<MicrophoneButton> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  User? _user;
+  DatabaseReference _databaseReference = FirebaseDatabase.instance.ref();
+
   double _scale = 2;
   bool _animate = false;
+
+  @override
+  void initState() {
+    _user = _auth.currentUser;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +62,7 @@ class _MicrophoneButtonState extends State<MicrophoneButton> {
             child: IconButton.filled(
               padding: EdgeInsets.all(24),
               onPressed: () {
-
+                recordToFirebase();
               },
               icon: Icon(Icons.mic),
               color: Colors.black,
@@ -63,5 +75,19 @@ class _MicrophoneButtonState extends State<MicrophoneButton> {
         ),
       ),
     );
+  }
+
+  void recordToFirebase() {
+    DatabaseReference databaseRef = _databaseReference.child('users/' + _user!.uid + '/Microphone');
+    DateTime currentDate = DateTime.now();
+
+    databaseRef.push().set({
+      'sound': 'empty',
+      'timestamp': currentDate.toString(),
+    }).then((_) {
+      print('Image added successfully!');
+    }).catchError((error) {
+      print('Failed to add image: $error');
+    });
   }
 }

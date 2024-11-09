@@ -45,6 +45,7 @@ dependencies:
   avatar_glow: ^3.0.1
   flutter_otp_text_field: ^1.1.0+2
   smooth_page_indicator: ^1.2.0+3
+  webview_flutter: ^4.10.0
 
 
 dev_dependencies:
