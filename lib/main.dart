@@ -5,15 +5,14 @@ import 'package:safevision/Screens/changePassword.dart';
 import 'package:safevision/Screens/editProfile.dart';
 import 'package:safevision/Screens/enterEmail.dart';
 import 'package:safevision/Screens/enterVerification.dart';
-import 'package:safevision/Screens/home.dart';
 import 'package:safevision/Screens/livecamera.dart';
 import 'package:safevision/Screens/loginpage.dart';
 import 'package:safevision/Screens/microphone.dart';
 import 'package:safevision/Screens/notification.dart';
 import 'package:safevision/Screens/onboarding.dart';
+import 'package:safevision/Screens/recordDetail.dart';
 import 'package:safevision/Screens/resetPassword.dart';
 import 'package:safevision/Screens/statspage.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:safevision/Screens/subcription.dart';
 import 'package:safevision/Screens/welcome.dart';
@@ -58,6 +57,7 @@ class MyApp extends StatelessWidget {
         'welcome': (context) => Welcomepage(),
         'onboarding': (context) => OnboardingScreen(),
         'test1':(context)=> FirebaseImagePage(),
+        // 'recordDetail':(context) => Recorddetail(null),
       },
       debugShowCheckedModeBanner: false,
     );

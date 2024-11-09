@@ -174,9 +174,9 @@ class _NotificationpageState extends State<Notificationpage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                for (int i = 0; i < _notificationData.length; i++)
+                for (int i = 0; i < allNotification.length; i++)
                   DailynotificationCard(
-                    dailyNotificationData: _notificationData[i],
+                    dailyNotificationData: allNotification[i],
                   ),
               ],
             ),

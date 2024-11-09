@@ -35,7 +35,7 @@ class Userinfocard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          width: 225,
+                          width: 200,
                           child: Text(
                             "Muhammad Ikram Sabila",
                             style: TextStyle(
