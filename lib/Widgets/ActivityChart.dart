@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+import '../Entities/ActivityNotification.dart';
 
 // void main() => runApp(MaterialApp(
 //     theme: ThemeData(
@@ -11,14 +15,62 @@ import 'package:fl_chart/fl_chart.dart';
 //     home: BarChartSample()
 // ));
 
-class ActivityChart extends StatelessWidget {
+class ActivityChart extends StatefulWidget {
   const ActivityChart({super.key, this.height = 150});
   final double? height;
+
+
+  @override
+  State<ActivityChart> createState() => _ActivityChartState();
+}
+
+class _ActivityChartState extends State<ActivityChart> {
+  DateTime currentDate = DateTime.now();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  User? _user;
+  DatabaseReference _databaseReference = FirebaseDatabase.instance.ref();
+
+  List<ActivityNotification> activities = [];
+  double _maxDailyCount = 10;
+
+  @override
+  void initState() {
+    _user = _auth.currentUser;
+    super.initState();
+    _setupVideoListener();
+  }
+
+  void _setupVideoListener() {
+    DatabaseReference videoRef = _databaseReference.child('users/' + _user!.uid + '/Notification');
+
+    // Listen for changes in the database reference
+    videoRef.onValue.listen((DatabaseEvent event) {
+      final data = event.snapshot.value as List<dynamic>?;
+      if (data != null) {
+        List<ActivityNotification> videoList = [];
+
+        // Loop through the map and add each video to the list
+        for (var videoData in data) {
+          if (videoData != null) {
+            videoList.add(ActivityNotification.fromMap(videoData as Map<dynamic, dynamic>));
+          }
+        }
+
+        // Update the state with the new list of videos
+        setState(() {
+          activities = videoList;
+          // print(activitiesCount);
+        });
+      }
+    }).onError((error) {
+      print('Failed to load videos: $error');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height, // Increased height to accommodate title
+      height: widget.height, // Increased height to accommodate title
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.onSecondaryContainer,
         borderRadius: BorderRadius.circular(22),
@@ -38,7 +90,7 @@ class ActivityChart extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Text(
-              'Activity Detected', // Your chart title
+              'Recorded Activity', // Your chart title
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
@@ -49,7 +101,7 @@ class ActivityChart extends StatelessWidget {
           Expanded( // Make the chart expand to fill available space
             child: BarChart(
               BarChartData(
-                maxY: 10, // Maximum value for y-axis
+                maxY: _maxDailyCount.toDouble(), // Maximum value for y-axis
                 barTouchData: BarTouchData(enabled: false),
                 titlesData: FlTitlesData(
                   leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)), // Removed left labels
@@ -59,15 +111,15 @@ class ActivityChart extends StatelessWidget {
                       getTitlesWidget: (value, meta) {
                         switch (value.toInt()) {
                           case 0:
-                            return const Text('25', style: TextStyle(fontSize: 16, color: Colors.white));
+                            return Text(currentDate.subtract(Duration(days: 24)).day.toString(), style: TextStyle(fontSize: 16, color: Colors.white));
                           case 8:
-                            return const Text('2', style: TextStyle(fontSize: 16, color: Colors.white));
+                            return Text(currentDate.subtract(Duration(days: 16)).day.toString(), style: TextStyle(fontSize: 16, color: Colors.white));
                           case 16:
-                            return const Text('10', style: TextStyle(fontSize: 16, color: Colors.white));
+                            return Text(currentDate.subtract(Duration(days: 8)).day.toString(), style: TextStyle(fontSize: 16, color: Colors.white));
                           case 24:
-                            return const Text('18', style: TextStyle(fontSize: 16, color: Colors.white));
+                            return Text(currentDate.day.toString(), style: TextStyle(fontSize: 16, color: Colors.white));
                           default:
-                            return const Text('');
+                            return Text('');
                         }
                       },
                       reservedSize: 32,
@@ -89,33 +141,66 @@ class ActivityChart extends StatelessWidget {
 
   // Function to generate the BarChartGroupData
   List<BarChartGroupData> _getBarGroups() {
-    return [
-      _createBarGroup(0, 8),
-      _createBarGroup(1, 6),
-      _createBarGroup(2, 7),
-      _createBarGroup(3, 5),
-      _createBarGroup(4, 9),
-      _createBarGroup(5, 4),
-      _createBarGroup(6, 8),
-      _createBarGroup(7, 2),
-      _createBarGroup(8, 3),
-      _createBarGroup(9, 7),
-      _createBarGroup(10, 6),
-      _createBarGroup(11, 5),
-      _createBarGroup(12, 9),
-      _createBarGroup(13, 2),
-      _createBarGroup(14, 8),
-      _createBarGroup(15, 5),
-      _createBarGroup(16, 4),
-      _createBarGroup(17, 8),
-      _createBarGroup(18, 3),
-      _createBarGroup(19, 3),
-      _createBarGroup(20, 7),
-      _createBarGroup(21, 6),
-      _createBarGroup(22, 5),
-      _createBarGroup(23, 9),
-      _createBarGroup(24, 1),
-    ];
+    List<BarChartGroupData> createBar = [];
+
+    for (var i = 0; i < 25; i++) {
+      int _dailyActivityCount = 0;
+      for (var j = 0; j < activities.length; j++) {
+        // print("iterated");
+        if(activities[j].timestamp!.day == currentDate.subtract(Duration(days: 24-i)).day){
+          _dailyActivityCount++;
+          print("same day!");
+        }
+      }
+      if(_dailyActivityCount > _maxDailyCount) {
+        print("daily: " + _dailyActivityCount.toString());
+        setState(() {
+          _maxDailyCount = _dailyActivityCount.toDouble();
+        });
+
+        print("run");
+      }
+      print(_dailyActivityCount);
+      createBar.add(_createBarGroup(i, _dailyActivityCount.toDouble()));
+    }
+    // print("MaxMae: " + biggestDailyCount.toString());
+    // setState(() {
+    //   int x = biggestDailyCount + 1;
+    //   String y = x.toString();
+    //   print(y);
+    //   maxDailyCount = int.parse(y).toDouble();
+    // });
+    print("Max: " + _maxDailyCount.toString());
+
+    return createBar;
+
+    // return [
+    //   _createBarGroup(0, 8),
+    //   _createBarGroup(1, 6),
+    //   _createBarGroup(2, 7),
+    //   _createBarGroup(3, 5),
+    //   _createBarGroup(4, 9),
+    //   _createBarGroup(5, 4),
+    //   _createBarGroup(6, 8),
+    //   _createBarGroup(7, 2),
+    //   _createBarGroup(8, 3),
+    //   _createBarGroup(9, 7),
+    //   _createBarGroup(10, 6),
+    //   _createBarGroup(11, 5),
+    //   _createBarGroup(12, 9),
+    //   _createBarGroup(13, 2),
+    //   _createBarGroup(14, 8),
+    //   _createBarGroup(15, 5),
+    //   _createBarGroup(16, 4),
+    //   _createBarGroup(17, 8),
+    //   _createBarGroup(18, 3),
+    //   _createBarGroup(19, 3),
+    //   _createBarGroup(20, 7),
+    //   _createBarGroup(21, 6),
+    //   _createBarGroup(22, 5),
+    //   _createBarGroup(23, 9),
+    //   _createBarGroup(24, 1),
+    // ];
   }
 
   // Helper function to create a BarChartGroupData
@@ -135,5 +220,4 @@ class ActivityChart extends StatelessWidget {
       ],
     );
   }
-
 }

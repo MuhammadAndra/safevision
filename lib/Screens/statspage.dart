@@ -1,22 +1,98 @@
 import 'package:flutter/material.dart';
+import 'package:safevision/Entities/ActivityNotification.dart';
+import 'package:safevision/Entities/MicrophoneSound.dart';
 import 'package:safevision/Widgets/ActivityChart.dart';
 import 'package:safevision/Widgets/AppBarWidget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 List<String> list = <String>[
   'Last 25 days',
-  'This month',
-  'Last 6 month',
-  'All time'
+  'Today',
 ];
 
-class Statspage extends StatelessWidget {
+bool showOnlyToday = false;
+final List<int> recordedCount = [0, 0];
+List<ActivityNotification> _activities = [];
+List<dynamic> _microphones = [];
+
+class Statspage extends StatefulWidget {
+  @override
+  State<Statspage> createState() => _StatspageState();
+}
+
+class _StatspageState extends State<Statspage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  User? _user;
+
+  DatabaseReference _databaseReference = FirebaseDatabase.instance.ref();
   final List<String> recordedName = [
     "Activity",
-    "Suspicious\nActivity",
     "Microphone\nUsage",
-    "Guest Count"
   ];
-  final List<int> recordedCount = [68, 34, 21, 89];
+
+  // static int activitiesCount = 0;
+
+
+
+  @override
+  void initState() {
+    _user = _auth.currentUser;
+    super.initState();
+    _setupFirebaseListener();
+  }
+
+  void _setupFirebaseListener() {
+    DatabaseReference videoRef = _databaseReference.child('users/' + _user!.uid + '/Notification');
+    DatabaseReference microphoneRef = _databaseReference.child('users/' + _user!.uid + '/Microphone');
+
+    // Listen for changes in the database reference
+    videoRef.onValue.listen((DatabaseEvent event) {
+      final data = event.snapshot.value as List<dynamic>?;
+      if (data != null) {
+        List<ActivityNotification> videoList = [];
+
+        // Loop through the map and add each video to the list
+        for (var videoData in data) {
+          if (videoData != null) {
+            videoList.add(ActivityNotification.fromMap(videoData as Map<dynamic, dynamic>));
+          }
+        }
+
+        // Update the state with the new list of videos
+        setState(() {
+          _activities = videoList;
+          recordedCount[0] = videoList.length;
+          // print(activitiesCount);
+        });
+      }
+    }).onError((error) {
+      print('Failed to load videos: $error');
+    });
+
+    microphoneRef.onValue.listen((DatabaseEvent event) {
+      final data = event.snapshot.value as Map<dynamic, dynamic>?; // Treat as a map
+      if (data != null) {
+        List<MicrophoneSound> microphoneList = [];
+
+        // Loop through the map and add each microphone data to the list
+        data.forEach((key, videoData) {
+          if (videoData != null) {
+            microphoneList.add(MicrophoneSound.fromMap(videoData as Map<dynamic, dynamic>));
+          }
+        });
+
+        // Update the state with the new list of microphones
+        setState(() {
+          _microphones = microphoneList;
+          recordedCount[1] = microphoneList.length;
+        });
+      }
+    }).onError((error) {
+      print('Failed to load microphones: $error');
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,23 +123,24 @@ class Statspage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  DropdownMenuExample(),
+                  DropdownMenuWidget(),
                 ],
               ),
             ),
             ActivityChart(
               height: 200,
+              // activities: _activities,
             ),
             SizedBox(
               height: 15,
             ),
             GridView.builder(
-              itemCount: 4,
+              itemCount: 2,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // Number of items per row
+                crossAxisCount: 1, // Number of items per row
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                childAspectRatio: 1.5, // Adjust the size of each tile
+                childAspectRatio: 3, // Adjust the size of each tile
               ),
               shrinkWrap: true,
               // Allows GridView to fit the height of its content
@@ -110,14 +187,14 @@ class StatsTile extends StatelessWidget {
               // Handle tap action
             },
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: 3,
-                  ),
+                  // SizedBox(
+                  //   height: 3,
+                  // ),
                   Text(
                     recordedName,
                     style: TextStyle(
@@ -131,7 +208,7 @@ class StatsTile extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.black54,
                       fontWeight: FontWeight.w500,
-                      fontSize: 24,
+                      fontSize: 28,
                     ),
                   ),
                 ],
@@ -144,14 +221,14 @@ class StatsTile extends StatelessWidget {
   }
 }
 
-class DropdownMenuExample extends StatefulWidget {
-  const DropdownMenuExample({super.key});
+class DropdownMenuWidget extends StatefulWidget {
+  const DropdownMenuWidget({super.key});
 
   @override
-  State<DropdownMenuExample> createState() => _DropdownMenuExampleState();
+  State<DropdownMenuWidget> createState() => _DropdownMenuWidgetState();
 }
 
-class _DropdownMenuExampleState extends State<DropdownMenuExample> {
+class _DropdownMenuWidgetState extends State<DropdownMenuWidget> {
   String dropdownValue = list.first;
 
   @override
@@ -176,6 +253,14 @@ class _DropdownMenuExampleState extends State<DropdownMenuExample> {
       onSelected: (String? value) {
         // This is called when the user selects an item.
         setState(() {
+          if(value == "Today") {
+            showOnlyToday = true;
+            recordedCount[0] = 0;
+            print(recordedCount);
+          } else if (value == "Last 25 days") {
+            showOnlyToday = false;
+          }
+          print(showOnlyToday);
           dropdownValue = value!;
         });
       },

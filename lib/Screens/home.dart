@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:safevision/Widgets/ActivityChart.dart';
 import 'package:safevision/Widgets/AppBarWidget.dart';
@@ -19,8 +20,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  DatabaseReference _databaseReference = FirebaseDatabase.instance.ref();
+  User? _user;
   int _counter = 0;
   String userEmail = '';
+  String username = '';
+
+  @override
+  void initState() {
+    _user = _auth.currentUser;
+    super.initState();
+    fetchName();
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -28,17 +40,30 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void fetchName()async {
+    DatabaseReference nameRef = _databaseReference.child('users/' + _user!.uid + '/name');
+    DataSnapshot snapshot = await nameRef.get();
+    if(snapshot.exists) {
+      setState(() {
+        username = snapshot.value as String;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     User? userFirebase = FirebaseAuth.instance.currentUser;
+
+
     if (userFirebase!=null) {
       setState(() {
         userEmail = userFirebase!.email.toString();
+
       });
     }
     return Scaffold(
       appBar: Appbarwidget(
-          title: "Hello $userEmail", subtitle: 'Good Morning!', bold: true),
+          title: "Hello $username", subtitle: 'Good Morning!', bold: true),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
