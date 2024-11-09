@@ -81,6 +81,7 @@ class _SettingsPageState extends State<SettingsPage> {
               icon: Icons.help_outline,
               menuName: "Support",
               onTap: () {
+                Navigator.pushNamed(context, 'recordDetail');
               },
             ),
             SizedBox(height: 14),

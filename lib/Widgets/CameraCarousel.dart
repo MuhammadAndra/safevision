@@ -53,10 +53,10 @@ class _CameracarouselState extends State<Cameracarousel> {
       Camera(
         'CAM1-BACK',
         'Backyard',
-        _image,
-        // NetworkImage(
-        //   "https://www.redfin.com/blog/wp-content/uploads/2020/05/3_Backyard-Oasis-Ideas.jpg",
-        // ),
+        // _image,
+        NetworkImage(
+          "https://www.redfin.com/blog/wp-content/uploads/2020/05/3_Backyard-Oasis-Ideas.jpg",
+        ),
       ),
       Camera(
           'CAM2-DOOR',
