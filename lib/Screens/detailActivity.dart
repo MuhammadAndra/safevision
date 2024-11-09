@@ -1,18 +1,23 @@
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 class DetailAktivitasPage extends StatelessWidget {
   final String nama;
   final String waktu;
-  final String urlGambar;
+  final String base64Image; // Mengubah dari urlGambar ke base64Image
 
   const DetailAktivitasPage({
     required this.nama,
     required this.waktu,
-    required this.urlGambar,
+    required this.base64Image,
   });
 
   @override
   Widget build(BuildContext context) {
+    print(base64Image);
+    Uint8List imageBytes = base64Decode(base64Image); // Dekode Base64 ke Uint8List
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detail Aktivitas'),
@@ -34,7 +39,7 @@ class DetailAktivitasPage extends StatelessWidget {
             ],
           ),
           constraints: const BoxConstraints(
-            maxHeight: 300, 
+            maxHeight: 300,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,16 +49,15 @@ class DetailAktivitasPage extends StatelessWidget {
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                 ),
-                child: Image.network(
-                  urlGambar,
+                child: Image.memory(
+                  imageBytes, // Tampilkan gambar menggunakan Image.memory
                   width: double.infinity,
                   height: 150,
                   fit: BoxFit.cover,
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -68,10 +72,6 @@ class DetailAktivitasPage extends StatelessWidget {
                       style: const TextStyle(fontSize: 14, color: Colors.grey),
                     ),
                     const SizedBox(height: 8),
-                    const Text(
-                      'No suspicious activity detected',
-                      style: TextStyle(fontSize: 14),
-                    ),
                   ],
                 ),
               ),
