@@ -38,7 +38,7 @@ class Services extends StatelessWidget {
           color: Colors.black,
           style: IconButton.styleFrom(
             backgroundColor:
-                selectedColor, // Set your desired circle color here
+                selectedColor,
           ),
         ),
         SizedBox(height: 10),

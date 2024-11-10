@@ -58,15 +58,13 @@ class _MyHomePageState extends State<Microphone> {
               ),
             ),
           ),
-          // Add Spacer or Expanded to push the buttons to the bottom
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
-              mainAxisSize: MainAxisSize.min, // Only take the minimum space
+              mainAxisSize: MainAxisSize.min,
               children: [
                 MicrophoneButton(),
-                SizedBox(height: 150), // Space between the button and dropdown
-                 // Space between the button and dropdown
+                SizedBox(height: 150),
               ],
             ),
           ),

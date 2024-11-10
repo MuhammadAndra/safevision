@@ -80,16 +80,15 @@ class Editprofilepage extends StatelessWidget {
                     bottom: 4,
                     right: 4,
                     child: CircleAvatar(
-                      radius: 18, // Ukuran latar belakang
+                      radius: 18,
                       backgroundColor:
-                          Color(0XFF4D6D7A), // Warna latar belakang
+                          Color(0XFF4D6D7A),
                       child: IconButton(
                         icon: Icon(Icons.camera_alt),
                         color: Colors.white,
                         iconSize:
-                            18, // Ukuran ikon agar sesuai dengan latar belakang
+                            18,
                         onPressed: () {
-                          // Aksi ketika tombol ditekan
                         },
                       ),
                     ),

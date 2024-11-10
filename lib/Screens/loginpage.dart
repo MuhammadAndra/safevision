@@ -23,9 +23,7 @@ class _LoginpageState extends State<Loginpage> {
   @override
   void initState() {
     super.initState();
-    // Cek jika pengguna sudah login
     if (_auth.currentUser != null) {
-      // Jika pengguna aktif, arahkan langsung ke halaman utama
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.pushReplacementNamed(context, "navigation");
       });
@@ -36,7 +34,7 @@ class _LoginpageState extends State<Loginpage> {
     if (_controllerUsername.text.isEmpty || _controllerPassword.text.isEmpty) {
       setState(() {
         _errorMessage =
-            "Email or password fields cannot be empty."; // Masukkan ke dalam setState
+            "Email or password fields cannot be empty.";
       });
     } else {
       try {
@@ -53,11 +51,6 @@ class _LoginpageState extends State<Loginpage> {
           MaterialPageRoute(builder: (context) => NavigationExample()),
           (Route<dynamic> route) => false,
         );
-        // Navigator.pushAndRemoveUntil(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => NavigationExample()),
-        //   (Route<dynamic> route) => false,
-        // );
       } catch (e) {
         print("Error logging in: $e");
         setState(() {
@@ -78,7 +71,7 @@ class _LoginpageState extends State<Loginpage> {
           children: [
             Align(
               alignment:
-                  Alignment.center, // Menempatkan gambar di tengah horizontal
+                  Alignment.center,
               child: Image(
                 image: AssetImage('assets/SafeVision.png'),
                 height: 100,
@@ -89,7 +82,7 @@ class _LoginpageState extends State<Loginpage> {
             ),
             Text(
               _errorMessage ??
-                  '', // Tampilkan teks error jika ada, jika tidak kosongkan
+                  '',
               style: TextStyle(
                 color: _errorMessage != null ? Colors.red : Colors.transparent,
               ),

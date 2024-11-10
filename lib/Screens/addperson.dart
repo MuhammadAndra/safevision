@@ -29,17 +29,14 @@ class _AddPersonState extends State<AddPerson> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final DatabaseReference _database = FirebaseDatabase.instance.ref();
 
-  // Email and password for login
   String email = 'andra@gmail.com';
   String password = '12345678';
 
-  // Data to send to Firebase
   String name = 'Andra Dzaki';
   String phoneNumber = '082254610616';
 
   User? _user;
 
-  // Function to login the user
   Future<void> _loginUser() async {
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
@@ -55,10 +52,8 @@ class _AddPersonState extends State<AddPerson> {
     }
   }
 
-  // Function to send data to Realtime Database
   Future<void> _sendData() async {
     if (_user != null) {
-      // Send name and phone number under the user's UID
       await _database.child('users/${_user!.uid}').set({
         'name': name,
         'phone': phoneNumber,
@@ -109,13 +104,12 @@ class _AddPersonState extends State<AddPerson> {
       people.add(
         Person(
           imageUrl:
-              "https://img.jakpost.net/c/2023/11/24/2023_11_24_144668_1700807263._large.jpg",
-          personName: "Fufufafa",
+              "https://cdn1-production-images-kly.akamaized.net/uHxNTNvtuOiwRrxKnoGbWEfYa6E=/800x800/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4807176/original/083625800_1713542860-Screen_Shot_2024-04-19_at_23.00.42.jpg",
+          personName: "Beyonce",
           relationship: "Stranger",
         ),
       );
       setState(() {});
-      // Call setState here
     }
 
     return Scaffold(

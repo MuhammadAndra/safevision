@@ -48,29 +48,25 @@ class _RecorddetailState extends State<Recorddetail> {
   Widget build(BuildContext context) {
     final Dio _dio = Dio();
 
-    // Fungsi untuk mengunduh video dari URL
     Future<void> downloadAndMoveVideo(RecordData recordData) async {
       String getSafeFileName(String originalFileName) {
         return originalFileName
                 .replaceAll(
-                    RegExp(r'[:\s]'), '_') // Ganti spasi dan titik dua dengan _
-                .replaceAll('.', '_') // Ganti titik (.) dengan _
+                    RegExp(r'[:\s]'), '_')
+                .replaceAll('.', '_')
             +
-            '.mp4'; // Tambahkan ekstensi jika perlu
+            '.mp4';
       }
 
       try {
-        // Mendapatkan direktori eksternal publik (contoh: Downloads)
         Directory externalDir = Directory('/storage/emulated/0/Download/SafeVision');
         String savePath =
             '${externalDir.path}/safevision_record_${getSafeFileName(recordData.date.toString())}';
 
-        // Melakukan unduhan menggunakan dio
         await _dio.download(recordData.videoUrl, savePath);
 
         print("Video downloaded to: $savePath");
 
-        // Menampilkan notifikasi atau informasi bahwa video telah berhasil dipindahkan
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Video saved to $savePath")),
         );
@@ -105,14 +101,14 @@ class _RecorddetailState extends State<Recorddetail> {
                 width: double.infinity,
                 height: 275,
                 color: Color(
-                    0XFFE2EDF2), // Pastikan container memiliki background yang konsisten
+                    0XFFE2EDF2),
                 child: Stack(
                   children: [
                     WebViewWidget(controller: controller),
                     if (_isLoading)
                       Container(
                         color: Color(
-                            0XFFE2EDF2), // Pastikan ini mencocokkan warna background WebView
+                            0XFFE2EDF2),
                         child: Center(
                           child: CircularProgressIndicator(
                             color: Color(0XFF4D6D7A),

@@ -29,19 +29,19 @@ class _MicrophoneButtonState extends State<MicrophoneButton> {
     return GestureDetector(
       onTapDown: (_) {
         setState(() {
-          _scale = 1.5; // Shrink the button when pressed
+          _scale = 1.5;
           _animate = true;
         });
       },
       onTapUp: (_) {
         setState(() {
-          _scale = 2; // Return to normal size when released
+          _scale = 2;
           _animate = false;
         });
       },
       onTapCancel: () {
         setState(() {
-          _scale = 2; // Reset if the press is canceled
+          _scale = 2;
           _animate = false;
         });
       },
@@ -49,11 +49,9 @@ class _MicrophoneButtonState extends State<MicrophoneButton> {
         scale: _scale,
         duration: const Duration(milliseconds: 150),
         child: AvatarGlow(
-          // startDelay: const Duration(milliseconds: 1000),
           glowColor: Colors.blue,
           glowShape: BoxShape.circle,
           animate: _animate,
-          // animate: _animate,
           curve: Curves.fastOutSlowIn,
           child: Material(
             elevation: 0,
@@ -68,7 +66,7 @@ class _MicrophoneButtonState extends State<MicrophoneButton> {
               color: Colors.black,
               style: IconButton.styleFrom(
                 backgroundColor:
-                Colors.blue[100], // Set your desired circle color here
+                Colors.blue[100],
               ),
             ),
           ),

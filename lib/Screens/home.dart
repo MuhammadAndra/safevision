@@ -70,7 +70,6 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             children: [
               Suspiciousactivitydetected(),
-              // SizedBox(height: 24),
               Sectiontitle(
                 title: "Live Camera",
                 seeAll: true,
@@ -86,8 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 seeAll: true,
                 route: 'test1',
               ),
-              // Sectiontitle(title: "Connected Devices", seeAll: true,),
-              // Sectiontitle(title: "Connected Devices", seeAll: true,),
               DeviceGrid(),
               Sectiontitle(
                   title: "Statistics", seeAll: true, route: 'service/stats'),

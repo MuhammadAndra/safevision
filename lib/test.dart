@@ -11,33 +11,31 @@ class FirebaseImagePage extends StatefulWidget {
 class _FirebaseImagePageState extends State<FirebaseImagePage> {
   DatabaseReference _databaseReference = FirebaseDatabase.instance.ref();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  String? _base64Image; // Store the base64 string
-  ImageProvider? _image; // To hold the current image
+  String? _base64Image;
+  ImageProvider? _image;
   User? _user;
-  final String placeholderImage = 'assets/placeholder-image.webp'; // Path to your placeholder image
-  List<dynamic> _detections = []; // List to store detection data
+  final String placeholderImage = 'assets/placeholder-image.webp';
+  List<dynamic> _detections = [];
 
   @override
   void initState() {
     super.initState();
     _user = _auth.currentUser;
-    _setupImageListener(_user); // Set up the image listener when the widget initializes
-    _setupDetectionListener(_user); // Set up detection listener
+    _setupImageListener(_user);
+    _setupDetectionListener(_user);
   }
 
   void _setupImageListener(User? _user) {
     this._user = _user;
     DatabaseReference imageRef = _databaseReference.child('users/' + _user!.uid + '/Video/image');
 
-    // Listen for changes in the database reference
     imageRef.onValue.listen((DatabaseEvent event) {
       final data = event.snapshot.value as String?;
       if (data != null) {
         String newImageData = data.substring(23);
-        // Update the image in a way that avoids flickering
         setState(() {
-          _base64Image = newImageData; // Store the new base64 string
-          _image = MemoryImage(base64Decode(newImageData)); // Update the image provider
+          _base64Image = newImageData;
+          _image = MemoryImage(base64Decode(newImageData));
         });
       }
     }).onError((error) {
@@ -49,22 +47,18 @@ class _FirebaseImagePageState extends State<FirebaseImagePage> {
     this._user = _user;
     DatabaseReference detectionRef = _databaseReference.child('users/' + _user!.uid + '/Video/detection');
 
-    // Listen for changes in the detection reference
     detectionRef.onValue.listen((DatabaseEvent event) {
       final data = event.snapshot.value;
 
-      // Check if data is a List or Map
       if (data is List) {
         setState(() {
-          _detections = data; // Update detections if it's a List
+          _detections = data;
         });
       } else if (data is Map) {
-        // If data is a Map, wrap it in a list
         setState(() {
-          _detections = [data]; // Wrap the map in a list
+          _detections = [data];
         });
       } else {
-        // Reset detections if data is neither List nor Map
         setState(() {
           _detections = [];
         });
@@ -83,25 +77,24 @@ class _FirebaseImagePageState extends State<FirebaseImagePage> {
       ),
       body: Center(
         child: _base64Image == null
-            ? CircularProgressIndicator() // Show loading spinner while the image is being fetched
-            : Stack( // Use Stack to overlay bounding boxes
+            ? CircularProgressIndicator()
+            : Stack(
           children: [
             AnimatedSwitcher(
-              duration: Duration(milliseconds: 300), // Duration of the fade transition
+              duration: Duration(milliseconds: 300),
               child: _image == null
-                  ? Image.asset(placeholderImage) // Show placeholder while loading
+                  ? Image.asset(placeholderImage)
                   : FadeInImage(
                 placeholder: AssetImage(placeholderImage),
                 image: _image!,
                 fit: BoxFit.fitHeight,
-                fadeInDuration: Duration(milliseconds: 300), // Duration of the fade-in
-                fadeOutDuration: Duration(milliseconds: 300), // Duration of the fade-out
+                fadeInDuration: Duration(milliseconds: 300),
+                fadeOutDuration: Duration(milliseconds: 300),
               ),
             ),
-            // Overlay bounding boxes on the image
             CustomPaint(
               painter: BoundingBoxPainter(_detections),
-              size: Size.fromHeight(0.0001), // Allow CustomPaint to fill the parent
+              size: Size.fromHeight(0.0001),
             ),
           ],
         ),
@@ -110,7 +103,6 @@ class _FirebaseImagePageState extends State<FirebaseImagePage> {
   }
 }
 
-// CustomPainter to draw bounding boxes
 class BoundingBoxPainter extends CustomPainter {
   final List<dynamic> detections;
 
@@ -125,18 +117,15 @@ class BoundingBoxPainter extends CustomPainter {
     for (var detection in detections) {
       if (detection['bbox'] != null) {
         List<dynamic> bbox = detection['bbox'];
-        // Ensure bbox has exactly 4 elements
         if (bbox.length == 4) {
           double x = bbox[0].toDouble();
           double y = bbox[1].toDouble();
           double width = bbox[2].toDouble();
           double height = bbox[3].toDouble();
 
-          // Draw the bounding box
           paint.color = detection['label'] == 'Human' ? Colors.red : Colors.green;
           canvas.drawRect(Rect.fromLTWH(x, y, width, height), paint);
 
-          // Draw the label and confidence text
           final label = detection['label'];
           final confidence = (detection['confidence'] * 100).toStringAsFixed(2);
           final text = '$label ($confidence%)';
@@ -147,7 +136,6 @@ class BoundingBoxPainter extends CustomPainter {
             textDirection: TextDirection.ltr,
           );
           textPainter.layout();
-          // Draw the text above the bounding box
           textPainter.paint(canvas, Offset(x, y > 10 ? y - 20 : y));
         }
       }
@@ -156,6 +144,6 @@ class BoundingBoxPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true; // Repaint whenever detections change
+    return true;
   }
 }

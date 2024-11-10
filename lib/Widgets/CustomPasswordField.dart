@@ -15,13 +15,13 @@ class CustomPasswordField extends StatefulWidget {
 }
 
 class _CustomPasswordFieldState extends State<CustomPasswordField> {
-  bool _isObscured = true; // Untuk menyembunyikan atau menampilkan password
+  bool _isObscured = true;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: widget.controller,
-      obscureText: _isObscured, // Mengatur apakah password tersembunyi atau tidak
+      obscureText: _isObscured,
       decoration: InputDecoration(
         hintText: widget.hintText,
         border: OutlineInputBorder(
@@ -29,20 +29,18 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
         ),
          enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(color:Color(0XFF4D6D7A), width: 1.0), // Warna border saat tidak fokus
+          borderSide: BorderSide(color:Color(0XFF4D6D7A), width: 1.0),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(color:Color(0XFF4D6D7A), width: 3.0), // Warna border saat fokus
+          borderSide: BorderSide(color:Color(0XFF4D6D7A), width: 3.0),
         ),
         suffixIcon: IconButton(
           icon: Icon(
-            // Jika password tersembunyi, tampilkan ikon mata dengan garis
             _isObscured ? Icons.visibility_off : Icons.visibility,
             color: Color(0XFF4D6D7A),
           ),
           onPressed: () {
-            // Mengubah state untuk mengatur apakah password terlihat atau tersembunyi
             setState(() {
               _isObscured = !_isObscured;
             });

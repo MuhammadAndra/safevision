@@ -31,8 +31,6 @@ class _StatspageState extends State<Statspage> {
     "Microphone\nUsage",
   ];
 
-  // static int activitiesCount = 0;
-
 
 
   @override
@@ -46,24 +44,20 @@ class _StatspageState extends State<Statspage> {
     DatabaseReference videoRef = _databaseReference.child('users/' + _user!.uid + '/Notification');
     DatabaseReference microphoneRef = _databaseReference.child('users/' + _user!.uid + '/Microphone');
 
-    // Listen for changes in the database reference
     videoRef.onValue.listen((DatabaseEvent event) {
       final data = event.snapshot.value as List<dynamic>?;
       if (data != null) {
         List<ActivityNotification> videoList = [];
 
-        // Loop through the map and add each video to the list
         for (var videoData in data) {
           if (videoData != null) {
             videoList.add(ActivityNotification.fromMap(videoData as Map<dynamic, dynamic>));
           }
         }
 
-        // Update the state with the new list of videos
         setState(() {
           _activities = videoList;
           recordedCount[0] = videoList.length;
-          // print(activitiesCount);
         });
       }
     }).onError((error) {
@@ -71,18 +65,16 @@ class _StatspageState extends State<Statspage> {
     });
 
     microphoneRef.onValue.listen((DatabaseEvent event) {
-      final data = event.snapshot.value as Map<dynamic, dynamic>?; // Treat as a map
+      final data = event.snapshot.value as Map<dynamic, dynamic>?;
       if (data != null) {
         List<MicrophoneSound> microphoneList = [];
 
-        // Loop through the map and add each microphone data to the list
         data.forEach((key, videoData) {
           if (videoData != null) {
             microphoneList.add(MicrophoneSound.fromMap(videoData as Map<dynamic, dynamic>));
           }
         });
 
-        // Update the state with the new list of microphones
         setState(() {
           _microphones = microphoneList;
           recordedCount[1] = microphoneList.length;
@@ -129,7 +121,6 @@ class _StatspageState extends State<Statspage> {
             ),
             ActivityChart(
               height: 200,
-              // activities: _activities,
             ),
             SizedBox(
               height: 15,
@@ -137,15 +128,13 @@ class _StatspageState extends State<Statspage> {
             GridView.builder(
               itemCount: 2,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1, // Number of items per row
+                crossAxisCount: 1,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                childAspectRatio: 3, // Adjust the size of each tile
+                childAspectRatio: 3,
               ),
               shrinkWrap: true,
-              // Allows GridView to fit the height of its content
               physics: NeverScrollableScrollPhysics(),
-              // Disables GridView scrolling
               itemBuilder: (BuildContext context, int index) {
                 return StatsTile(
                   recordedName: recordedName[index],
@@ -184,7 +173,6 @@ class StatsTile extends StatelessWidget {
           elevation: 0,
           child: InkWell(
             onTap: () {
-              // Handle tap action
             },
             child: Padding(
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -192,13 +180,9 @@ class StatsTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // SizedBox(
-                  //   height: 3,
-                  // ),
                   Text(
                     recordedName,
                     style: TextStyle(
-                      // fontWeight: FontWeight.bold,
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
@@ -251,7 +235,6 @@ class _DropdownMenuWidgetState extends State<DropdownMenuWidget> {
       ),
       initialSelection: list.first,
       onSelected: (String? value) {
-        // This is called when the user selects an item.
         setState(() {
           if(value == "Today") {
             showOnlyToday = true;

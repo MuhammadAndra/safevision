@@ -15,7 +15,7 @@ class _SubcriptionPageState extends State<SubcriptionPage> {
 
   void toggleSafe() {
     setState(() {
-      safe = !safe; // Mengubah nilai safe
+      safe = !safe;
     });
   }
 
@@ -116,7 +116,7 @@ class _SubcriptionPageState extends State<SubcriptionPage> {
             ),
             SizedBox(height: 30),
             Align(
-              alignment: Alignment.center, // Memusatkan teks di tengah
+              alignment: Alignment.center,
               child: Text(
                 "Auto-renewal is \$50/month until cancelled",
                 style: TextStyle(color: Color(0XFF4D6D7A)),

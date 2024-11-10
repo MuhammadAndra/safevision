@@ -26,7 +26,6 @@ class Resetpassword extends StatelessWidget {
           mainOnPressed: () {
             Navigator.of(context).pop();
             if (_auth.currentUser != null) {
-              // Jika pengguna aktif, arahkan langsung ke halaman utama
                Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) => NavigationExample(initialPageIndex: 3,)),
                 (Route<dynamic> route) => false,

@@ -14,7 +14,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
   @override
   void initState() {
     super.initState();
-    dropdownValue = widget.list.first; // Access list from the widget
+    dropdownValue = widget.list.first;
   }
 
   @override
@@ -37,7 +37,6 @@ class _DropdownWidgetState extends State<DropdownWidget> {
       ),
       initialSelection: widget.list.first,
       onSelected: (String? value) {
-        // This is called when the user selects an item.
         setState(() {
           dropdownValue = value!;
         });

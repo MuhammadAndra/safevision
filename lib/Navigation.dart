@@ -10,7 +10,6 @@ import 'Widgets/AppBarWidget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class NavigationExample extends StatefulWidget {
-  // final User user;
   final int initialPageIndex;
 
   const NavigationExample({super.key, this.initialPageIndex = 0});
@@ -42,7 +41,6 @@ class _NavigationExampleState extends State<NavigationExample> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    // User user = widget.user;
 
     return Scaffold(
       bottomNavigationBar: Bottomnavigationbar(

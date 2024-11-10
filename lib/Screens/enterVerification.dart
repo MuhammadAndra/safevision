@@ -5,7 +5,7 @@ import 'package:safevision/Widgets/OtpTextField.dart';
 
 class Enterverification extends StatelessWidget {
   Enterverification({super.key});
-  String verificationCode = ''; //ambil kodenya dari sini
+  String verificationCode = '';
   void handleCodeChange(String code) {
     verificationCode = code;
   }

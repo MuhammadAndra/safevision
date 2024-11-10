@@ -6,13 +6,13 @@ class DeviceGrid extends StatelessWidget {
     return GridView.builder(
       itemCount: deviceList.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2, // Number of items per row
+        crossAxisCount: 2,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
-        childAspectRatio: 1.5, // Adjust the size of each tile
+        childAspectRatio: 1.5,
       ),
-      shrinkWrap: true, // Allows GridView to fit the height of its content
-      physics: NeverScrollableScrollPhysics(), // Disables GridView scrolling
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
         return DeviceTile(device: deviceList[index]);
       },
@@ -50,7 +50,6 @@ class DeviceTile extends StatelessWidget {
         elevation: 0,
         child: InkWell(
           onTap: () {
-            // Handle tap action
           },
           child: Padding(
             padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
@@ -69,7 +68,6 @@ class DeviceTile extends StatelessWidget {
                 Text(
                   device.title,
                   style: TextStyle(
-                    // fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
                 ),

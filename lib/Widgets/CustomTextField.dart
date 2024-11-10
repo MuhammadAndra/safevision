@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 class Customtextfield extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
-  final bool isPassword; // untuk menentukan apakah ini TextField untuk password
+  final bool isPassword;
   final IconData? prefixIcon;
   final TextInputType keyboardType;
   const Customtextfield({
     super.key,
-    required this.controller, // wajib ada controller
-    this.hintText = '', // hintText opsional
-    this.isPassword = false, // default tidak untuk password
-    this.prefixIcon, // prefixIcon opsional
+    required this.controller,
+    this.hintText = '',
+    this.isPassword = false,
+    this.prefixIcon,
     this.keyboardType = TextInputType.text,
   });
 
@@ -20,7 +20,7 @@ class Customtextfield extends StatelessWidget {
     return TextField(
       
       controller: controller,
-      obscureText: isPassword,  // Jika untuk password, ubah teks menjadi tersembunyi
+      obscureText: isPassword,
       keyboardType: keyboardType,
       decoration: InputDecoration(
         hintText: hintText,
@@ -29,13 +29,13 @@ class Customtextfield extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(color:Color(0XFF4D6D7A), width: 1.0), // Warna border saat tidak fokus
+          borderSide: BorderSide(color:Color(0XFF4D6D7A), width: 1.0),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(color:Color(0XFF4D6D7A), width: 3.0), // Warna border saat fokus
+          borderSide: BorderSide(color:Color(0XFF4D6D7A), width: 3.0),
         ),
-        suffixIcon: prefixIcon != null ? Icon(prefixIcon) : null, // tambahkan ikon jika ada
+        suffixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
       ),
     );
   }

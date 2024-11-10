@@ -19,7 +19,7 @@ class Personcard extends StatelessWidget {
       height: 260,
       decoration: BoxDecoration(
         color: Color(0XFFE2EDF2),
-        borderRadius: BorderRadius.circular(20), // Adjust the radius as needed
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,7 +47,6 @@ class Personcard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    // width: 115,
                     child: Flexible(
                       child: Text(
                         personName,

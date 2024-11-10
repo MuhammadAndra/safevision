@@ -9,28 +9,26 @@ class FirebaseImagePage extends StatefulWidget {
 
 class _FirebaseImagePageState extends State<FirebaseImagePage> {
   DatabaseReference _databaseReference = FirebaseDatabase.instance.ref();
-  String? _base64Image;  // Store the base64 string
-  ImageProvider? _image; // To hold the current image
-  final String placeholderImage = 'assets/placeholder.png'; // Path to your placeholder image
+  String? _base64Image;
+  ImageProvider? _image;
+  final String placeholderImage = 'assets/placeholder.png';
 
   @override
   void initState() {
     super.initState();
-    _setupImageListener();  // Set up the image listener when the widget initializes
+    _setupImageListener();
   }
 
   void _setupImageListener() {
     DatabaseReference imageRef = _databaseReference.child('users/2dK2t8Zyg5RJloifZrIX1b9AOXQ2/Video/image');
 
-    // Listen for changes in the database reference
     imageRef.onValue.listen((DatabaseEvent event) {
       final data = event.snapshot.value as String?;
       if (data != null) {
         String newImageData = data.substring(23);
-        // Update the image in a way that avoids flickering
         setState(() {
-          _base64Image = newImageData; // Store the new base64 string
-          _image = MemoryImage(base64Decode(newImageData)); // Update the image provider
+          _base64Image = newImageData;
+          _image = MemoryImage(base64Decode(newImageData));
         });
       }
     }).onError((error) {
@@ -46,17 +44,17 @@ class _FirebaseImagePageState extends State<FirebaseImagePage> {
       ),
       body: Center(
         child: _base64Image == null
-            ? CircularProgressIndicator()  // Show loading spinner while the image is being fetched
+            ? CircularProgressIndicator()
             : AnimatedSwitcher(
-          duration: Duration(milliseconds: 300), // Duration of the fade transition
+          duration: Duration(milliseconds: 300),
           child: _image == null
-              ? Image.asset(placeholderImage) // Show placeholder while loading
+              ? Image.asset(placeholderImage)
               : FadeInImage(
             placeholder: AssetImage(placeholderImage),
             image: _image!,
             fit: BoxFit.cover,
-            fadeInDuration: Duration(milliseconds: 300), // Duration of the fade-in
-            fadeOutDuration: Duration(milliseconds: 300), // Duration of the fade-out
+            fadeInDuration: Duration(milliseconds: 300),
+            fadeOutDuration: Duration(milliseconds: 300),
           ),
         ),
       ),

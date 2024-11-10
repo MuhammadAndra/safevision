@@ -31,16 +31,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // home: NavigationExample(),
       home: (_auth.currentUser!=null)?  NavigationExample() : Welcomepage(),
       theme: ThemeData(
         fontFamily: 'Poppins',
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      // initialRoute: 'service/stats',
       routes: {
-        //nambahin routing disini yaa
         'service/livecamera': (context) => Livecamera(),
         'service/microphone': (context) => Microphone(),
         'service/addperson': (context) => AddPerson(),
@@ -57,7 +54,6 @@ class MyApp extends StatelessWidget {
         'welcome': (context) => Welcomepage(),
         'onboarding': (context) => OnboardingScreen(),
         'test1':(context)=> FirebaseImagePage(),
-        // 'recordDetail':(context) => Recorddetail(null),
       },
       debugShowCheckedModeBanner: false,
     );

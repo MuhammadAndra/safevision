@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class DetailAktivitasPage extends StatelessWidget {
   final String nama;
   final String waktu;
-  final String base64Image; // Mengubah dari urlGambar ke base64Image
+  final String base64Image;
 
   const DetailAktivitasPage({
     required this.nama,
@@ -16,7 +16,7 @@ class DetailAktivitasPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(base64Image);
-    Uint8List imageBytes = base64Decode(base64Image); // Dekode Base64 ke Uint8List
+    Uint8List imageBytes = base64Decode(base64Image);
 
     return Scaffold(
       appBar: AppBar(
@@ -50,7 +50,7 @@ class DetailAktivitasPage extends StatelessWidget {
                   topRight: Radius.circular(10),
                 ),
                 child: Image.memory(
-                  imageBytes, // Tampilkan gambar menggunakan Image.memory
+                  imageBytes,
                   width: double.infinity,
                   height: 150,
                   fit: BoxFit.cover,

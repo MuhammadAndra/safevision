@@ -19,7 +19,6 @@ class _HalamanArchiveState extends State<HalamanArchive> {
   List<RecordData> _allRecordData = [];
   List<RecordData> _todayRecordedData = [];
 
-  //ngambil data record
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? _user;
   late DatabaseReference _dbRef;
@@ -167,12 +166,6 @@ class _HalamanArchiveState extends State<HalamanArchive> {
               children: [
                 for (int i = 0; i < _todayRecordedData.length; i++)
                   itemArchive(_todayRecordedData[i])
-                // itemArchive('Backyard - Camera', '14:15:30',
-                //     'https://media.istockphoto.com/id/1330054759/photo/gift-gifting-with-family.jpg?s=612x612&w=0&k=20&c=zAmdxnDcDnmhbNGqVl30iGh0E5GcLOjk8uOiI6xxIBI='),
-                // itemArchive('Front Door - Camera', '10:21:42',
-                //     'https://media.istockphoto.com/id/1330054759/photo/gift-gifting-with-family.jpg?s=612x612&w=0&k=20&c=zAmdxnDcDnmhbNGqVl30iGh0E5GcLOjk8uOiI6xxIBI='),
-                // itemArchive('Front Door - Camera', '09:05:20',
-                //     'https://media.istockphoto.com/id/1330054759/photo/gift-gifting-with-family.jpg?s=612x612&w=0&k=20&c=zAmdxnDcDnmhbNGqVl30iGh0E5GcLOjk8uOiI6xxIBI='),
               ],
             ),
           ),

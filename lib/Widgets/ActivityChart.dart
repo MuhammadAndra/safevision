@@ -5,15 +5,6 @@ import 'package:firebase_database/firebase_database.dart';
 
 import '../Entities/ActivityNotification.dart';
 
-// void main() => runApp(MaterialApp(
-//     theme: ThemeData(
-//       fontFamily: 'Poppins',
-//
-//       colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-//       useMaterial3: true,
-//     ),
-//     home: BarChartSample()
-// ));
 
 class ActivityChart extends StatefulWidget {
   const ActivityChart({super.key, this.height = 150});
@@ -43,23 +34,19 @@ class _ActivityChartState extends State<ActivityChart> {
   void _setupVideoListener() {
     DatabaseReference videoRef = _databaseReference.child('users/' + _user!.uid + '/Notification');
 
-    // Listen for changes in the database reference
     videoRef.onValue.listen((DatabaseEvent event) {
       final data = event.snapshot.value as List<dynamic>?;
       if (data != null) {
         List<ActivityNotification> videoList = [];
 
-        // Loop through the map and add each video to the list
         for (var videoData in data) {
           if (videoData != null) {
             videoList.add(ActivityNotification.fromMap(videoData as Map<dynamic, dynamic>));
           }
         }
 
-        // Update the state with the new list of videos
         setState(() {
           activities = videoList;
-          // print(activitiesCount);
         });
       }
     }).onError((error) {
@@ -70,7 +57,7 @@ class _ActivityChartState extends State<ActivityChart> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: widget.height, // Increased height to accommodate title
+      height: widget.height,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.onSecondaryContainer,
         borderRadius: BorderRadius.circular(22),
@@ -83,14 +70,13 @@ class _ActivityChartState extends State<ActivityChart> {
         ],
       ),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Column( // Use a Column to stack the title and chart
-        crossAxisAlignment: CrossAxisAlignment.start, // Align to the left
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Title of the chart
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Text(
-              'Recorded Activity', // Your chart title
+              'Recorded Activity',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
@@ -98,13 +84,13 @@ class _ActivityChartState extends State<ActivityChart> {
               ),
             ),
           ),
-          Expanded( // Make the chart expand to fill available space
+          Expanded(
             child: BarChart(
               BarChartData(
-                maxY: _maxDailyCount.toDouble(), // Maximum value for y-axis
+                maxY: _maxDailyCount.toDouble(),
                 barTouchData: BarTouchData(enabled: false),
                 titlesData: FlTitlesData(
-                  leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)), // Removed left labels
+                  leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
                   bottomTitles: AxisTitles(
                     sideTitles: SideTitles(
                       showTitles: true,
@@ -130,7 +116,7 @@ class _ActivityChartState extends State<ActivityChart> {
                 ),
                 gridData: FlGridData(show: false),
                 borderData: FlBorderData(show: false),
-                barGroups: _getBarGroups(), // Call the function to get bar groups
+                barGroups: _getBarGroups(),
               ),
             ),
           ),
@@ -139,14 +125,12 @@ class _ActivityChartState extends State<ActivityChart> {
     );
   }
 
-  // Function to generate the BarChartGroupData
   List<BarChartGroupData> _getBarGroups() {
     List<BarChartGroupData> createBar = [];
 
     for (var i = 0; i < 25; i++) {
       int _dailyActivityCount = 0;
       for (var j = 0; j < activities.length; j++) {
-        // print("iterated");
         if(activities[j].timestamp!.day == currentDate.subtract(Duration(days: 24-i)).day){
           _dailyActivityCount++;
           print("same day!");
@@ -163,49 +147,13 @@ class _ActivityChartState extends State<ActivityChart> {
       print(_dailyActivityCount);
       createBar.add(_createBarGroup(i, _dailyActivityCount.toDouble()));
     }
-    // print("MaxMae: " + biggestDailyCount.toString());
-    // setState(() {
-    //   int x = biggestDailyCount + 1;
-    //   String y = x.toString();
-    //   print(y);
-    //   maxDailyCount = int.parse(y).toDouble();
-    // });
     print("Max: " + _maxDailyCount.toString());
 
     return createBar;
 
-    // return [
-    //   _createBarGroup(0, 8),
-    //   _createBarGroup(1, 6),
-    //   _createBarGroup(2, 7),
-    //   _createBarGroup(3, 5),
-    //   _createBarGroup(4, 9),
-    //   _createBarGroup(5, 4),
-    //   _createBarGroup(6, 8),
-    //   _createBarGroup(7, 2),
-    //   _createBarGroup(8, 3),
-    //   _createBarGroup(9, 7),
-    //   _createBarGroup(10, 6),
-    //   _createBarGroup(11, 5),
-    //   _createBarGroup(12, 9),
-    //   _createBarGroup(13, 2),
-    //   _createBarGroup(14, 8),
-    //   _createBarGroup(15, 5),
-    //   _createBarGroup(16, 4),
-    //   _createBarGroup(17, 8),
-    //   _createBarGroup(18, 3),
-    //   _createBarGroup(19, 3),
-    //   _createBarGroup(20, 7),
-    //   _createBarGroup(21, 6),
-    //   _createBarGroup(22, 5),
-    //   _createBarGroup(23, 9),
-    //   _createBarGroup(24, 1),
-    // ];
   }
 
-  // Helper function to create a BarChartGroupData
   BarChartGroupData _createBarGroup(int x, double toY) {
-    // Determine the color based on the value of x
     Color barColor = (toY > 8) ? Colors.yellow : Colors.white;
 
     return BarChartGroupData(
@@ -213,7 +161,7 @@ class _ActivityChartState extends State<ActivityChart> {
       barRods: [
         BarChartRodData(
           toY: toY,
-          color: barColor, // Use the determined color
+          color: barColor,
           width: 4,
           borderRadius: BorderRadius.circular(4),
         ),

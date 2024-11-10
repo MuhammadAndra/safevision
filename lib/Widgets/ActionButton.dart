@@ -22,12 +22,12 @@ class Actionbutton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: sendVerif == true 
               ? Colors.white 
-              : (safe == true ? Color(0XFF4D6D7A) : Color(0XFF7A4D4D)), // Default style jika sendVerif false
+              : (safe == true ? Color(0XFF4D6D7A) : Color(0XFF7A4D4D)),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12), // Membuat sudut melengkung
+            borderRadius: BorderRadius.circular(12),
             side: sendVerif == true 
-                ? BorderSide(color: Color(0XFF4D6D7A), width: 2) // Border biru jika sendVerif true
-                : BorderSide.none, // Tidak ada border jika sendVerif false
+                ? BorderSide(color: Color(0XFF4D6D7A), width: 2)
+                : BorderSide.none,
           ),
           padding: const EdgeInsets.symmetric(vertical: 10),
         ),
@@ -35,7 +35,7 @@ class Actionbutton extends StatelessWidget {
         child: Text(
           textButton,
           style: TextStyle(
-            color: sendVerif == true ? Color(0XFF4D6D7A) : Colors.white, // Warna teks menyesuaikan
+            color: sendVerif == true ? Color(0XFF4D6D7A) : Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 16,
           ),

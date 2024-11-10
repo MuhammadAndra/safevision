@@ -37,7 +37,7 @@ class Userinfocard extends StatelessWidget {
                         Container(
                           width: 200,
                           child: Text(
-                            "Muhammad Ikram Sabila",
+                            "Andra Dzaki",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16),
                             overflow: TextOverflow.ellipsis,
@@ -47,7 +47,7 @@ class Userinfocard extends StatelessWidget {
                           height: 5,
                         ),
                         Text(
-                          "ikramgtgbgt@gmail.com",
+                          "andra@gmail.com",
                           style: TextStyle(color: Colors.grey, fontSize: 12),
                         ),
                       ],

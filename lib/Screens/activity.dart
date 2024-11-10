@@ -18,7 +18,6 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
   List<NotifData> _allNotifData = [];
   List<NotifData> _todayNotifData = [];
 
-  //ngambil data record
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? _user;
   late DatabaseReference _dbRef;
@@ -160,7 +159,6 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
   Widget itemAktivitas(NotifData notifData, int index) {
     return GestureDetector(
       onTap: () {
-        // Navigate to the detail page when the item is tapped
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -188,7 +186,7 @@ class _HalamanAktivitasState extends State<HalamanAktivitas> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Aktivitas ${index + 1}', // Show "Aktivitas 1", "Aktivitas 2", etc.
+                      'Aktivitas ${index + 1}',
                       style: TextStyle(fontWeight: FontWeight.w600),
                     ),
                     Text(notifData.Timestamp.toString()),

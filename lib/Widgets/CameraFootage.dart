@@ -24,7 +24,7 @@ class cameraFootage extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
       child: Stack(children: [
         AnimatedSwitcher(
-          duration: Duration(milliseconds: 300), // Durasi transisi fade
+          duration: Duration(milliseconds: 300),
           child: footage == null
               ? Center(child: CircularProgressIndicator())
               : ClipRRect(
@@ -37,9 +37,8 @@ class cameraFootage extends StatelessWidget {
                       height: 200,
                       fit: BoxFit.cover,
                       fadeInDuration: Duration(milliseconds: 300),
-                      // Durasi fade-in
                       fadeOutDuration:
-                          Duration(milliseconds: 300), // Durasi fade-out
+                          Duration(milliseconds: 300),
                     ),
                     Container(
                       width: width,
@@ -47,23 +46,12 @@ class cameraFootage extends StatelessWidget {
                       child: CustomPaint(
                         painter: BoundingBoxPainter(detections, 10, 15),
                         size: Size.fromHeight(
-                            0.0001), // Allow CustomPaint to fill the parent
+                            0.0001),
                       ),
                     ),
                   ]),
                 ),
         ),
-        // Container(
-        //   width: double.infinity,
-        //   height: 200,
-        //   decoration: BoxDecoration(
-        //     borderRadius: BorderRadius.circular(30.0),
-        //     image: DecorationImage(
-        //       image: footage,
-        //       fit: BoxFit.cover,
-        //     ),
-        //   ),
-        // ),
         Positioned(
           bottom: 20,
           left: 20,

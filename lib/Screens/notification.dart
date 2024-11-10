@@ -22,7 +22,7 @@ class _NotificationpageState extends State<Notificationpage> {
   @override
   void initState() {
     super.initState();
-    _user = _auth.currentUser; // Inisialisasi pengguna saat ini
+    _user = _auth.currentUser;
     if (_user != null) {
       _dbRef = FirebaseDatabase.instance
           .ref()
@@ -32,17 +32,15 @@ class _NotificationpageState extends State<Notificationpage> {
 
       _dbRef.onValue.listen((DatabaseEvent event) {
         final data = event.snapshot.value;
-        print(data); // Debugging: cek isi data dari Firebase
+        print(data);
 
         if (data != null && data is Map) {
           _notificationData = data.values
               .map((item) {
                 final itemMap = item as Map<dynamic, dynamic>;
-                // Ambil notificationDate dari root item
                 DateTime notificationDate = DateTime.fromMillisecondsSinceEpoch(
                     itemMap['notificationDate']);
 
-                // Proses setiap notifikasi di dalam todayNotification
                 List<NotificationData> notifications = [];
                 if (itemMap['todayNotification'] is Map) {
                   notifications =
@@ -158,7 +156,6 @@ class _NotificationpageState extends State<Notificationpage> {
       ],
     ),
 
-    // Tambahkan lebih banyak data sesuai kebutuhan
   ];
 
   @override

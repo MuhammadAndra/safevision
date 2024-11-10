@@ -16,7 +16,6 @@ class DailynotificationCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          // formatRelativeDate(dailyNotificationData.dateTime),
           notificationDate,
           style: TextStyle(color: Color(0XFF797979), fontSize: 16),
         ),
@@ -53,7 +52,6 @@ class DailynotificationCard extends StatelessWidget {
     } else if (difference.inDays < 60) {
       return '${difference.inDays ~/ 7} minggu yang lalu';
     } else {
-      // Format tanggal secara lengkap jika lebih dari seminggu
 
       return 'A long time ago';
     }

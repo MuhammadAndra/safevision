@@ -2,7 +2,7 @@ class ActivityNotification {
   String? image;
   DateTime? timestamp;
 
-  ActivityNotification({required this.image, required this.timestamp}); // Named parameters
+  ActivityNotification({required this.image, required this.timestamp});
 
   factory ActivityNotification.fromMap(Map<dynamic, dynamic> data) {
     return ActivityNotification(
